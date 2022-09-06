@@ -1,3 +1,6 @@
+//Require dragula
+import dragula from 'dragula';
+
 class Tasks
 {
     //Constructor
@@ -50,4 +53,18 @@ class Tasks
     {
         this.type = newType;
     }
+
+    //CC: added delete functionality, not implemented
+    // this.removeTask = function (board) {
+    //     var boardElement = null
+    //     if (typeof board === 'string')
+    //       boardElement = self.element.querySelector('[data-id="' + board + '"]')
+    //     if (boardElement !== null) {
+    //       //fallback for IE
+    //       if (typeof boardElement.remove == 'function') {
+    //         boardElement.remove()
+    //       } else {
+    //         boardElement.parentNode.removeChild(boardElement)
+    //       }
+    //     }
 }
