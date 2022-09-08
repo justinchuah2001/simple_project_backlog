@@ -42,26 +42,29 @@
 
                         <label class="inputFields">Priority: </label>
                         <!-- add colours here -->
-                        <select id="Priority" Priotity="" style="width: 100px;">
+                        <select id="priority" Priority="" >
                         <option>High</option> 
                         <option>Medium</option>
                         <option>Low</option>
                         </select>
                         <br>
+
                         <label class="inputFields">Tags: </label>
-                        <select id="Tags" Tags="" style="width: 100px;">
+                        <select id="tags" Tags="">
                         <option>Bugs</option>
                         <option>User story</option>
                         </select>
                         <br>
+
                         <label class="inputFields">Status: </label>
-                        <select id="assignedMembers" Status="" style="width: 100px;">
+                        <select id="status">
                         <option>To-Do</option>
                         <option>In Progress</option>
                         <option>To Review</option>
                         <option>Done</option>
                         </select>
                         <br>
+
                         <label class="inputFields">Story Points:<input type="search" list="fibNums" placeholder="Choose/Manual input" id="storyPoints"></label>
                             <datalist id="fibNums">
                                 <option>1</option>
@@ -77,7 +80,7 @@
                                 <option>144</option>
                             </datalist>
                         <br>
-                        Details:<input type="text" class="textArea" placeholder="Description of task goes here">   
+                        Details:<input type="text" class="textArea" id="details" placeholder="Description of task goes here">   
                         
                         
                     </form>
