@@ -4,7 +4,7 @@
 <head>
     <!--MDL STUFF-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.green-red.min.css" /> 
     <link rel="stylesheet" href="styles.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="functions.js"></script>
@@ -20,12 +20,14 @@
                 <a class="mdl-navigation__link" href="Team_Members.html">Team Members</a>
             </nav>
         </div>
+
         <main class="mdl-layout__content">
             <div class="page-content">
                 <button class="mdl-button mdl-js-button mdl-button--raised" id="createCard" onclick="createCard()"
                     style="margin: 10px;">
                     Create
                 </button>
+
                 <dialog  class = "modal" id = "modal">
                     <h3>Task Details</h3>
                     <form>
@@ -61,10 +63,10 @@
                         <option>Done</option>
                         </select>
                         <br>
-                        Story Points:<input type="number">   
+                        <label class="inputFields">Story Points: </label><input type="number">   
                         <!-- need to change it to only input postive int or the fibbonacci sequence -->
                         <br>
-                        Details:<input type="text">   
+                        <label class="inputFields">Details: </label<input type="text">   
                         
                         
                     </form>

@@ -1,9 +1,14 @@
 function createCard()
 {
     const modal = document.getElementById("modal")
+    const btn = document.getElementById("myBtn");
     const saveModal = document.getElementById("saveTask")
     const closeModal = document.getElementById("cancelTask")
-    modal.showModal();
+    
+    btn.onclick = function() {
+        modal.showModal();
+      }
+    
     saveModal.addEventListener("click", ()=>{
         //Storing of data goes here
         modal.close();
@@ -11,6 +16,12 @@ function createCard()
     closeModal.addEventListener("click", () =>{
         modal.close();
     })
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.close();
+        }
+      } 
 
     // Creation of card goes here
     let cardIdRef = document.getElementById("cards");
