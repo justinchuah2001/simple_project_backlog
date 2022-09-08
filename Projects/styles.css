@@ -3,13 +3,21 @@
 }
 
 .inputFields{
-    margin: auto;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-right: 10px;
     font-size: large;
 }
 .modal{
     height: 60%;
     width: 50%;
+    background-color: rgb(0, 255, 213);
+}
+.textArea{
+    width: 100%;
+    height: auto;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+    font-size: small;
 }
