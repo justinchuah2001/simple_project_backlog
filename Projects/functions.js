@@ -1,13 +1,22 @@
 function createCard()
 {
     const modal = document.getElementById("modal")
-    const btn = document.getElementById("myBtn");
     const saveModal = document.getElementById("saveTask")
     const closeModal = document.getElementById("cancelTask")
+    modal.showModal();
+
+    var btn = document.getElementById("createCard");
+    btn.onclick = "createCard()";
     
-    btn.onclick = function() {
-        modal.showModal();
-      }
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    
     
     saveModal.addEventListener("click", ()=>{
         //Storing of data goes here
@@ -19,7 +28,7 @@ function createCard()
 
     window.onclick = function(event) {
         if (event.target == modal) {
-            modal.close();
+            modal.style.display = "none";
         }
       } 
 
