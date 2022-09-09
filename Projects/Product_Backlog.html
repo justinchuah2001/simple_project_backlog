@@ -22,7 +22,7 @@
             </nav>
         </div>
         <main class="mdl-layout__content">
-            <div class="page-content">
+            <div class="card">
                 <button class="mdl-button mdl-js-button mdl-button--raised" id="createCard" onclick="createCard()"
                     style="margin: 10px;">
                     Create
@@ -100,14 +100,27 @@
                 
                 <!-- Overview -->
                 <span class="padding"></span>
-                <div class="mdl-grid" id="cards">
-                    <div class="mdl-cell mdl-cell--4-col" id="card1"> document.getElement('formName')
+                <div class="card-grid">
+                    <div class="card" id="card1">
+                        <div class="card-header" div id="card.taskName"> Test
+                        </div>
+
+                        <div class="card-body">
+                            <div id = "card.assginee"> Team member: </div>
+                            <div id = "card.priority">Priority: </div>
+                            <div id = "card.tags">Tags: </div>
+                            <div id = "card.status">Status: </div>
+                            <div id = "card.storyPoints">Story Points: </div>
+                            <div id = "card.details">Details: </div>
+                        </div>
+                        
+
                     </div>
 
-                    <div class="mdl-cell mdl-cell--4-col" id="card2"> hi
+                    <div class="card" id="card2"> hi
 
                     </div>
-                    <div class="mdl-cell mdl-cell--4-col" id="card3"> hi
+                    <div class="card" id="card3"> hi
 
                     </div>
                 </div>
