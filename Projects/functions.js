@@ -33,7 +33,14 @@ function createCard()
             clearFields()
         } 
     })
-    
+
+    //Closes the modal window once anything outside the window is clicked
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.close();
+        }
+      } 
+
     closeModal.addEventListener("click", () =>{
         modal.close();
         clearFields()
