@@ -11,7 +11,8 @@
     <script src="shared.js"></script>
 </head>
 
-<body>
+<body class="product_backlog">
+    <script src="js/main.js" type="module"> </script>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
         <div class="mdl-layout__drawer">
             <span class="mdl-layout-title">Product Backlog</span>
@@ -21,6 +22,7 @@
                 <a class="mdl-navigation__link" href="Team_Members.html">Team Members</a>
             </nav>
         </div>
+
         <main class="mdl-layout__content">
             <div class="card">
                 <button class="mdl-button mdl-js-button mdl-button--raised" id="createCard" onclick="createCard()"
@@ -97,9 +99,10 @@
                     <button class ="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;" id="saveTask">Save </button>
                     <button class ="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;" id="cancelTask">Cancel</button>
                 </dialog>
-                
+            </div>
+
                 <!-- Overview -->
-                <span class="padding"></span>
+                <span class="padding">
                 <div class="card-grid">
                     <div class="card" id="card1">
                         <div class="card-header" div id="card.taskName"> Task</div>
@@ -117,8 +120,6 @@
                             <button class="btn btn-outline">Edit</button>
                             <button class="btn">Delete</button>
                           </div>
-                        
-
                     </div>
 
                     <div class="card" id="card2">
@@ -154,12 +155,12 @@
                                 <button class="btn">Delete</button>
                             </div>
                         </div>
-
                     </div>
-                </div>
+            </span>
             </div>
         </main>
     </div>
+
 </body>
 
 </html>
