@@ -19,7 +19,7 @@ function createCard()
         card.status = document.getElementById("status").value
         card.storyPoints = document.getElementById("storyPoints").value
         card.details = document.getElementById("details").value
-
+        
         //Ensuring no empty fields
         if (card.taskName == ""|| card.assginee== "" || card.priority == ""|| card.tags == "" || card.status == "" || card.storyPoints == "" || card.details == "")
         {
@@ -83,4 +83,10 @@ function retrieveLSData()
 function updateLSData(data)
 {
     localStorage.setItem("cards", JSON.stringify(data))
+}
+
+function showCards(){
+    document.getElementById("card.taskName").textContent = card.taskName
+
+
 }
