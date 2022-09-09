@@ -5,6 +5,14 @@
 .inputFields{
     font-size: large;
 }
+/*hi*/
+.product_backlog{
+  background-color: #FCF8E8;
+}
+
+.mdl-layout__drawer {
+  background-color: #CEE5D0;
+}
 
 .modal{
     position: fixed; /* Stay in place */
@@ -15,7 +23,6 @@
     height: 60%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: #ecd1a7;
-
 }
 
 /* Modal Content/Box */
@@ -26,7 +33,7 @@
     border: 1px solid rgb(8, 8, 8);
     width: 80%; /* Could be more or less, depending on screen size */
 }
-    
+/*hi
 /* The Close Button */
 .close {
     color: #aaa;
@@ -41,7 +48,6 @@
     text-decoration: none;
     cursor: pointer;
 }  
-
 
 .textArea{
     width: 100%;
@@ -64,10 +70,11 @@
   
   .card {
     --padding: 1rem;
-    background: white;
+    background: #94B49F;
     border: 1px solid #777;
     border-radius: .25rem;
     overflow: hidden;
+    
   }
   
   .card.card-shadow {
@@ -77,6 +84,7 @@
   
   .card-header {
     font-size: 1.5rem;
+    color: white;
     padding: var(--padding);
     padding-bottom: 0;
     margin-bottom: .5rem;
@@ -102,7 +110,9 @@
   }
   
   .card-body {
-    font-size: .9rem;
+    font-size: 1.1rem;
+    color: white;
+    font-family:Calibri;
     padding: 0 var(--padding);
   }
   
