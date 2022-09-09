@@ -5,12 +5,13 @@ function createCard()
     const saveModal = document.getElementById("saveTask")
     const closeModal = document.getElementById("cancelTask")
     
-    
     modal.showModal(); // Makes the prompt appear
-    let cards = retrieveLSData()
+    
+    let cards = retrieveLSData();
+
     saveModal.addEventListener("click", ()=>{
         // Initizalizing tasks(card)
-        let card = new Tasks()
+        let card = new Tasks();
         // Retrieving input field values
         card.taskName = document.getElementById("formName").value
         card.assginee = document.getElementById("assignedMembers").value
@@ -19,19 +20,17 @@ function createCard()
         card.status = document.getElementById("status").value
         card.storyPoints = document.getElementById("storyPoints").value
         card.details = document.getElementById("details").value
+        card.type = document.getElementById("type").value
 
         //Ensuring no empty fields
-        if (card.taskName == ""|| card.assginee== "" || card.priority == ""|| card.tags == "" || card.status == "" || card.storyPoints == "" || card.details == "")
-        {
-            alert("One or more fields are empty, please do not leave fields empty!")
-        }
-        else
+        if (checkValidity(card) == true)
         {
             cards.push(card)
             updateLSData(cards)
             modal.close();
-            clearFields()
+            setTimeout(clearFields, 800)
         } 
+        
     })
     
     closeModal.addEventListener("click", () =>{
@@ -50,15 +49,17 @@ function clearFields(){
     let priority = document.getElementById("priority")
     let storyPoints = document.getElementById("storyPoints")
     let details = document.getElementById("details")
+    let type = document.getElementById("type")
     
     //Resetting values
-    taskName.value =""
+    taskName.value = ""
     assginee.value = "Justin"
-    tags.value = "Bugs"
+    type.value = "Bugs"
     priority.value = "High"
     status.value = "To-Do"
     storyPoints.value = ""
     details.value = ""
+    tags.value = 'Front-end'
 }
 function retrieveLSData()
 {
@@ -73,7 +74,21 @@ function retrieveLSData()
         return JSON.parse(localStorage.getItem("cards"))
     }
 }
+
 function updateLSData(data)
 {
     localStorage.setItem("cards", JSON.stringify(data))
+}
+
+function checkValidity(card)
+{
+    if (card.taskName == ""||card.storyPoints == "" || card.details == "")
+    {
+        alert("One or more fields are empty, please do not leave fields empty!")
+        return false
+    }
+    else
+    {
+        return true
+    }
 }
