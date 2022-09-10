@@ -81,7 +81,7 @@ function showCard() {
         <div>Tags: <span id="tags${id_num}">${card._tags}</span> </div>
         <div>Status: <span id="status${id_num}">${card._status}</span> </div>
         <div>Story Points: <span id="storyPoints${id_num}">${card._storyPoints}</span> </div>
-        <div>Details: <span id="details${id_num}">${card._details}</span> </div>
+        
     </div>
     <div class="card-footer">
         <button class="btn btn-outline" onclick = "showCardDetails(${id_num})">Edit</button>
