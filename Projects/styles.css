@@ -7,7 +7,7 @@
 }
 /*hi*/
 .product_backlog{
-  background-color: #FCF8E8;
+  background-color: #94B49F;
 }
 
 .mdl-layout__drawer {
@@ -22,7 +22,7 @@
     width: 50%; /* Full width */
     height: 60%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: #ecd1a7;
+    background-color: #FCF8E8;
 }
 
 /* Modal Content/Box */
@@ -70,7 +70,7 @@
   
   .card {
     --padding: 1rem;
-    background: #94B49F;
+    background: white;
     border: 1px solid #777;
     border-radius: .25rem;
     overflow: hidden;
@@ -84,7 +84,7 @@
   
   .card-header {
     font-size: 1.5rem;
-    color: white;
+    color: black;
     padding: var(--padding);
     padding-bottom: 0;
     margin-bottom: .5rem;
@@ -111,7 +111,7 @@
   
   .card-body {
     font-size: 1.1rem;
-    color: white;
+    color: black;
     font-family:Calibri;
     padding: 0 var(--padding);
   }
