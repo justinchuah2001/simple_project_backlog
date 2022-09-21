@@ -5,7 +5,7 @@
 .inputFields{
     font-size: large;
 }
-/*hi*/
+
 .product_backlog{
   background-color: #94B49F;
 }
@@ -22,18 +22,18 @@
     width: 50%; /* Full width */
     height: 60%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: #FCF8E8;
+    background-color: #FCF8E8; /* this doesn't change anything */
 }
 
 /* Modal Content/Box */
 .modal-content {
-    background-color: #E0E0E0;
+    background-color: #E0E0E0; /* this doesn't change anything */
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid rgb(8, 8, 8);
     width: 80%; /* Could be more or less, depending on screen size */
 }
-/*hi
+
 /* The Close Button */
 .close {
     color: #aaa;
@@ -65,16 +65,45 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1rem;
+    
     align-items: flex-start;
   }
-  
+
+  .header {
+    background-color: #FCF8E8;
+  }
+
   .card {
     --padding: 1rem;
     background: white;
     border: 1px solid #777;
     border-radius: .25rem;
     overflow: hidden;
-    
+  }
+
+  .card1 {
+    --padding: 1rem;
+    background: RGB(219, 255, 212);
+    border: 1px solid #777;
+    border-radius: .25rem;
+    overflow: hidden;
+  }
+
+  .card2 {
+    --padding: 1rem;
+    background: RGB(212, 228, 255);
+    border: 1px solid #777;
+    border-radius: .25rem;
+    overflow: hidden;
+    /* opacity: 1; */
+  }
+
+  .card3 {
+    --padding: 1rem;
+    background: RGB(255, 212, 213);
+    border: 1px solid #777;
+    border-radius: .25rem;
+    overflow: hidden;
   }
   
   .card.card-shadow {
