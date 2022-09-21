@@ -5,10 +5,13 @@
     <!--MDL STUFF-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="styles.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="functions.js"></script>
+    <script src="shared.js"></script>
 </head>
 
-<body>
+<body class="sprint_backlog" onload="showCard()">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
         <div class="mdl-layout__drawer">
             <span class="mdl-layout-title">Sprint Backlog</span>
@@ -19,11 +22,15 @@
             </nav>
         </div>
         <main class="mdl-layout__content">
-            <div class="page-content">
-
+            <div class="header">
+                <button class="mdl-button mdl-js-button mdl-button--raised" id="createCard" onclick="createCard()"
+                style="margin: 10px;">
+                Create
+            </button>
             </div>
         </main>
     </div>
+
 </body>
 
 </html>
