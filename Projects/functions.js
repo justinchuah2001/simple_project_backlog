@@ -72,23 +72,60 @@ function showCard() {
     cardHolderRef.innerHTML = `` //Temporary measure to be revisited
     for (let id_num = 1; id_num < retrieveLSData().length + 1; id_num += 1) {
         let card = retrieveLSData()[id_num - 1]
-        cardHolderRef.innerHTML += `<div class="card" id="card${id_num}">
-    <div class="card-header"><span id="formName${id_num}">${card._taskName}</span></div>
-
-    <div class="card-body">
-        <div> Team member: <span id="assignedMember${id_num}">${card._assginee}</span> </div>
-        <div>Priority: <span id="priority${id_num}">${card._priority}</span> </div>
-        <div>Tags: <span id="tags${id_num}">${card._tags}</span> </div>
-        <div>Status: <span id="status${id_num}">${card._status}</span> </div>
-        <div>Story Points: <span id="storyPoints${id_num}">${card._storyPoints}</span> </div>
+        if (card._priority === "High") {
+            cardHolderRef.innerHTML += `<div class="card1" id="card${id_num}">
+            <div class="card-header"><span id="formName${id_num}">${card._taskName}</span></div>
+            <div class="card-body">
+                <div> Team member: <span id="assignedMember${id_num}">${card._assginee}</span> </div>
+                <div>Priority: <span id="priority${id_num}">${card._priority}</span> </div>
+                <div>Tags: <span id="tags${id_num}">${card._tags}</span> </div>
+                <div>Status: <span id="status${id_num}">${card._status}</span> </div>
+                <div>Story Points: <span id="storyPoints${id_num}">${card._storyPoints}</span> </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-outline" onclick = "showCardDetails(${id_num})">Edit</button>
+                <button class="btn" onclick = "deleteModal(${id_num})">Delete</button>
+            </div>
+        </div>`
+        }
+        if (card._priority === "Medium") {
+            cardHolderRef.innerHTML += `<div class="card2" id="card${id_num}">
+            <div class="card-header"><span id="formName${id_num}">${card._taskName}</span></div>
+            
+            <div class="card-body">
+                <div> Team member: <span id="assignedMember${id_num}">${card._assginee}</span> </div>
+                <div>Priority: <span id="priority${id_num}">${card._priority}</span> </div>
+                <div>Tags: <span id="tags${id_num}">${card._tags}</span> </div>
+                <div>Status: <span id="status${id_num}">${card._status}</span> </div>
+                <div>Story Points: <span id="storyPoints${id_num}">${card._storyPoints}</span> </div>
+                
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-outline" onclick = "showCardDetails(${id_num})">Edit</button>
+                <button class="btn" onclick = "deleteModal(${id_num})">Delete</button>
+            </div>
+        </div>`
+        }
+        if (card._priority === "Low") {
+            cardHolderRef.innerHTML += `<div class="card3" id="card${id_num}">
+            <div class="card-header"><span id="formName${id_num}">${card._taskName}</span></div>
         
-    </div>
-    <div class="card-footer">
-        <button class="btn btn-outline" onclick = "showCardDetails(${id_num})">Edit</button>
-        <button class="btn" onclick = "deleteModal(${id_num})">Delete</button>
-    </div>
-</div>`
+            <div class="card-body">
+                <div> Team member: <span id="assignedMember${id_num}">${card._assginee}</span> </div>
+                <div>Priority: <span id="priority${id_num}">${card._priority}</span> </div>
+                <div>Tags: <span id="tags${id_num}">${card._tags}</span> </div>
+                <div>Status: <span id="status${id_num}">${card._status}</span> </div>
+                <div>Story Points: <span id="storyPoints${id_num}">${card._storyPoints}</span> </div>
+                
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-outline" onclick = "showCardDetails(${id_num})">Edit</button>
+                <button class="btn" onclick = "deleteModal(${id_num})">Delete</button>
+            </div>
+        </div>`
+        }
     }
+
 }
 
 function saveModal() {
