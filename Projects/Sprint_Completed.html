@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--MDL STUFF-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="functions.js"></script>
+    <script src="shared.js"></script>
+</head>
+
+<body class="sprint_inactive" onload="showCard()">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Inactive Sprint</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="Product_Backlog.html">Product Backlog</a>
+                <a class="mdl-navigation__link" href="Sprint_Backlog.html">Sprint Backlog</a>
+                <a class="mdl-navigation__link" href="Team_Members.html">Team Members</a>
+            </nav>
+        </div>
+        <main class="mdl-layout__content">
+            <div class="header">
+                <button class="mdl-button mdl-js-button mdl-button--raised" id="viewBurndownChart" onclick="viewBurndownChart()"
+                    style="margin: 10px; color: white; background-color:#6E85B7; font-family:Verdana;">
+                    Burndown Chart
+                </button>
+
+            </div>
+            <div class="row">
+                <div class="column_header" style="background-color:#F9F3DF;">
+                  <h4>To-do</h4>
+                </div>
+                <div class="column_header" style="background-color:#FEFBE7;">
+                  <h4>In progress</h4>
+                </div>
+                <div class="column_header" style="background-color:#F9F3DF;">
+                  <h4>Done</h4>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+
+</html>
