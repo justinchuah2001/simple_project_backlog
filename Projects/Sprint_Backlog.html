@@ -50,6 +50,17 @@
                         <input type="date" id="End Date" name="">
                         <br>
 
+                        <label class="inputFields">Tasks:</label> <br>
+                        <form action="/action_page.php">
+                            <input type="checkbox" id="task1" name="task1" value="task1">
+                            <label for="vehicle1"> task1</label><br>
+                            <input type="checkbox" id="task2" name="task2" value="task2">
+                            <label for="task2"> task2</label><br>
+                            <input type="checkbox" id="task3" name="task3" value="task3">
+                            <label for="task3"> task3</label><br><br>
+                          </form>
+
+
                     </form>
                     <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;" id="saveTask"
                         onclick="saveModal()">Save </button>
@@ -58,6 +69,17 @@
                 </dialog>
 
 
+            </div>
+            <div class="row">
+                <div class="column_header" style="background-color:#F9F3DF;">
+                  <h4>Inactive</h4>
+                </div>
+                <div class="column_header" style="background-color:#FEFBE7;">
+                  <h4>Active</h4>
+                </div>
+                <div class="column_header" style="background-color:#F9F3DF;">
+                  <h4>Completed</h4>
+                </div>
             </div>
 
         </main>
