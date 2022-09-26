@@ -7,11 +7,12 @@
 }
 
 .product_backlog{
-  background-color: #94B49F;
+  background-color: white; /*background color*/
 }
 
 .mdl-layout__drawer {
-  background-color: #CEE5D0;
+  background-color: #C4D7E0; /*side bar color*/
+  color: black;
 }
 
 .modal{
@@ -65,12 +66,11 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1rem;
-    
     align-items: flex-start;
   }
 
   .header {
-    background-color: #FCF8E8;
+    background-color: #C4D7E0; /*top bar color*/
   }
 
   .card {
@@ -84,7 +84,7 @@
   .card1 {
     --padding: 1rem;
     background: RGB(219, 255, 212);
-    border: 1px solid #777;
+    border: 3px solid #C4D7E0;
     border-radius: .25rem;
     overflow: hidden;
   }
@@ -92,7 +92,7 @@
   .card2 {
     --padding: 1rem;
     background: RGB(212, 228, 255);
-    border: 1px solid #777;
+    border: 3px solid #C4D7E0;
     border-radius: .25rem;
     overflow: hidden;
     /* opacity: 1; */
@@ -101,7 +101,7 @@
   .card3 {
     --padding: 1rem;
     background: RGB(255, 212, 213);
-    border: 1px solid #777;
+    border: 3px solid #C4D7E0;
     border-radius: .25rem;
     overflow: hidden;
   }
@@ -179,3 +179,4 @@
   .btn + .btn {
     margin-left: .25rem;
   }
+
