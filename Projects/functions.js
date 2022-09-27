@@ -125,7 +125,6 @@ function showCard() {
         </div>`
         }
     }
-
 }
 
 function saveModal() {
@@ -192,6 +191,158 @@ function showCardDetails(id) {
 
     closeModal.addEventListener("click", () => {
         modalEdit.close();
+    })
+}
+function filter(){
+    x = document.getElementById("filterOptions")
+    x.showModal();
+
+    window.onclick = function (event) {
+        if (event.target == x) {
+            x.close();
+        }
+    }
+    cancelModal.addEventListener("click", () => {
+        x.close();
+        clearFields()
+    })
+}
+
+function filterObjects(c){
+    var x,i;
+    x = retrieveLSData()
+    let cardHolderRef = document.getElementById("cards")
+    cardHolderRef.innerHTML = ``
+    if(c != "all"){
+        for (i = 0; i<x.length; i++)
+        {
+            if (x[i]._priority == c) {
+                if(c == "High"){
+                    cardHolderRef.innerHTML += `<div class="card1" id="card${i}">
+                    <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
+                    <div class="card-body">
+                        <div> Team member: <span id="assignedMember${i}">${x[i]._assginee}</span> </div>
+                        <div>Priority: <span id="priority${i}">${x[i]._priority}</span> </div>
+                        <div>Tags: <span id="tags${i}">${x[i]._tags}</span> </div>
+                        <div>Status: <span id="status${i}">${x[i]._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${i}">${x[i]._storyPoints}</span> </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                    </div>
+                </div>`
+                }
+                if(c == "Medium"){
+                    cardHolderRef.innerHTML += `<div class="card2" id="card${i}">
+                    <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
+                    
+                    <div class="card-body">
+                        <div> Team member: <span id="assignedMember${i}">${x[i]._assginee}</span> </div>
+                        <div>Priority: <span id="priority${i}">${x[i]._priority}</span> </div>
+                        <div>Tags: <span id="tags${i}">${x[i]._tags}</span> </div>
+                        <div>Status: <span id="status${i}">${x[i]._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${i}">${x[i]._storyPoints}</span> </div>
+                        
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                    </div>
+                </div>`
+                }
+                if(c == "Low"){
+                    cardHolderRef.innerHTML += `<div class="card3" id="card${i}">
+                    <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
+                
+                    <div class="card-body">
+                        <div> Team member: <span id="assignedMember${i}">${x[i]._assginee}</span> </div>
+                        <div>Priority: <span id="priority${i}">${x[i]._priority}</span> </div>
+                        <div>Tags: <span id="tags${i}">${x[i]._tags}</span> </div>
+                        <div>Status: <span id="status${i}">${x[i]._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${i}">${x[i]._storyPoints}</span> </div>
+                        
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                    </div>
+                </div>`
+                }
+            }
+        }
+    }
+    else{
+        for (i = 0; i<x.length; i++)
+        {
+                if(x[i]._priority == "High"){
+                    cardHolderRef.innerHTML += `<div class="card1" id="card${i}">
+                    <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
+                    <div class="card-body">
+                        <div> Team member: <span id="assignedMember${i}">${x[i]._assginee}</span> </div>
+                        <div>Priority: <span id="priority${i}">${x[i]._priority}</span> </div>
+                        <div>Tags: <span id="tags${i}">${x[i]._tags}</span> </div>
+                        <div>Status: <span id="status${i}">${x[i]._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${i}">${x[i]._storyPoints}</span> </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                    </div>
+                </div>`
+                }
+                if(x[i]._priority == "Medium"){
+                    cardHolderRef.innerHTML += `<div class="card2" id="card${i}">
+                    <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
+                    
+                    <div class="card-body">
+                        <div> Team member: <span id="assignedMember${i}">${x[i]._assginee}</span> </div>
+                        <div>Priority: <span id="priority${i}">${x[i]._priority}</span> </div>
+                        <div>Tags: <span id="tags${i}">${x[i]._tags}</span> </div>
+                        <div>Status: <span id="status${i}">${x[i]._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${i}">${x[i]._storyPoints}</span> </div>
+                        
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                    </div>
+                </div>`
+                }
+                if(x[i]._priority == "Low"){
+                    cardHolderRef.innerHTML += `<div class="card3" id="card${i}">
+                    <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
+                
+                    <div class="card-body">
+                        <div> Team member: <span id="assignedMember${i}">${x[i]._assginee}</span> </div>
+                        <div>Priority: <span id="priority${i}">${x[i]._priority}</span> </div>
+                        <div>Tags: <span id="tags${i}">${x[i]._tags}</span> </div>
+                        <div>Status: <span id="status${i}">${x[i]._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${i}">${x[i]._storyPoints}</span> </div>
+                        
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                    </div>
+                </div>`
+                }
+            
+        }
+    }
+}
+function sort(){
+    x = document.getElementById("sortOptions")
+    x.showModal();
+
+    window.onclick = function (event) {
+        if (event.target == x) {
+            x.close();
+        }
+    }
+    cancelModal.addEventListener("click", () => {
+        x.close();
+        clearFields()
     })
 }
 
