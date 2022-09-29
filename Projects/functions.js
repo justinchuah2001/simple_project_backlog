@@ -1,7 +1,5 @@
 function createCard() {
-    //References
     const modal = document.getElementById("modalCreate")
-    //const saveModal = document.getElementById("saveTask")
     const cancelModal = document.getElementById("cancelTask")
 
     modal.showModal(); // Makes the prompt appear
@@ -209,4 +207,163 @@ function deleteModal(id) {
         localStorage.setItem("cards", newData)
         showCard() //Reupdate page with new ID
     }
+}
+
+/////SPRINT BACKLOG
+function createSprint() {
+    const modal = document.getElementById("sprintCreate")
+    const cancelModal = document.getElementById("cancelTask")
+
+    modal.showModal(); // Makes the prompt appear
+
+    //Closes the modal window once anything outside the window is clicked
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.close();
+        }
+    }
+
+    cancelModal.addEventListener("click", () => {
+        modal.close();
+        clearFields()
+    })
+}
+
+function sprintCreate()
+{
+    const modal = document.getElementById("sprintCreate")
+    let cards = retrieveLSData();
+    // Initizalizing tasks(card)
+    let card = new Tasks();
+    // Retrieving input field values
+    card.sprintName = document.getElementById("formName").value
+    card.sprintStatus = document.getElementById("sprintStatus").value
+    card.startDate = document.getElementById("startDate").value
+    card.endDate = document.getElementById("endDate").value
+    card.tasks = document.getElementById("tasks").value
+
+    //Ensuring no empty fields
+    if (checkValidity(card) == true) {
+        cards.push(card)
+        updateLSData(cards)
+        showCard(card)
+        modal.close();
+        setTimeout(clearFields, 300)
+    }
+}
+
+
+// Function to clear fields
+function clearFields() {
+    //Getting references
+    let sprintName = document.getElementById("formName").value
+    let sprintStatus = document.getElementById("sprintStatus").value
+    let startDate = document.getElementById("startDate").value
+    let endDate = document.getElementById("endDate").value
+    let tasks = document.getElementById("tasks").value
+
+    //Resetting values
+    sprintName.value = ""
+    sprintStatus.value = ""
+    startDate.value = ""
+    endDate.value = ""
+    tasks.value = ""
+}
+
+
+
+function showSprint() {
+    //Reference to card holders
+    let cardHolderRef = document.getElementById("cards")
+    cardHolderRef.innerHTML = `` //Temporary measure to be revisited
+    for (let id_num = 1; id_num < retrieveLSData().length + 1; id_num += 1) {
+        let card = retrieveLSData()[id_num - 1]
+    
+            cardHolderRef.innerHTML += `<div class="card" id="card${id_num}">
+            <div class="card-header">
+            
+            <span id="formName${id_num}">${card._sprintName}</span></div>
+
+            <div class="card-body">
+                <div> Sprint Status: <span id="assignedMember${id_num}">${card._sprintStatus}</span> </div>
+
+                <div>Start Date: <span id="priority${id_num}">${card._startDate}</span> </div>
+                <div>End Date: <span id="tags${id_num}">${card._endDate}</span> </div>
+                <div>Tasks: <span id="status${id_num}">${card._tasks}</span> </div>
+
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-outline" onclick = "showCardDetails(${id_num})">Edit</button>
+                <button class="btn" onclick = "deleteModal(${id_num})">Delete</button>
+            </div>
+        </div>
+
+            <div class="card-footer">
+                <button class="btn btn-outline" onclick = "showCardDetails(${id_num})">Edit</button>
+                <button class="btn" onclick = "deleteModal(${id_num})">Delete</button>
+            </div>
+        </div>`
+        }
+    }
+
+
+
+function saveSprint() {
+    const modal = document.getElementById("sprintCreate")
+    let cards = retrieveLSData();
+    // Initizalizing tasks(card)
+    let card = new Tasks();
+    // Retrieving input field values
+    sprintName = document.getElementById("formName").value
+    sprintStatus = document.getElementById("sprintStatus").value
+    startDate = document.getElementById("startDate").value
+    endDate = document.getElementById("endDate").value
+    tasks = document.getElementById("tasks").value
+
+
+    //Ensuring no empty fields
+    if (checkValidity(card) == true) {
+        cards.push(card)
+        updateLSData(cards)
+        showCard(card)
+        modal.close();
+        setTimeout(clearFields, 300)
+    }
+}
+
+function showSprintDetails(id) {
+    //References
+    const modalEdit = document.getElementById("modalEdit")
+    const applyModal = document.getElementById("applyTask")
+    const closeModal = document.getElementById("closeCard")
+    let cards = retrieveLSData()
+    let data = cards[id - 1]
+    document.getElementById("sprintNameEdit").value = data._sprintName
+    document.getElementById("sprintStatusEdit").value = data._sprintStatus
+    document.getElementById("startDateEdit").value = data._startDate
+    document.getElementById("endDateEdit").value = data._endDate
+    document.getElementById("tasksEdit").value = data._tasks
+    modalEdit.showModal(); // Makes the prompt appear
+
+    applyModal.addEventListener("click", () => {
+        data._sprintName = document.getElementById("sprintNameEdit").value
+        data._sprintStatus = document.getElementById("sprintStatusEdit").value
+        data._startDate = document.getElementById("startDateEdit").value
+        data._endDate = document.getElementById("endDateEdit").value
+        data._tasks = document.getElementById("tasksEdit").value
+
+        localStorage.setItem("cards", JSON.stringify(cards))
+        modalEdit.close()
+        showCard() // Update the changes
+    })
+    //Closes the modal window once anything outside the window is clicked
+    window.onclick = function (event) {
+        if (event.target == modalEdit) {
+            modalEdit.close();
+        }
+    }
+
+    closeModal.addEventListener("click", () => {
+        modalEdit.close();
+    })
 }
