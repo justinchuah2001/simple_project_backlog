@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<body>
+<canvas id="myChart" style="width:100%;max-width:1000px"></canvas>
+
+<script>
+var xValues = ["2015-03-15","2015-03-16","2015-04-17","2015-03-18","2015-04-19"];
+var yValues_ideal = [100,75,50,25,0]; /*Ideal burndown would be an array starting from sum of story points in sprint to 0 over the sprint duration resulting in linear graph*/
+var yValues_reality = [100,80,70,60,0]
+var yValues_done = [0,20,30,40,100]
+
+new Chart("myChart", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [{
+      fill: false,
+      data: yValues_ideal,
+      label: "Ideal Burndown",
+      borderColor: "red"
+    },{ 
+      fill: false,
+      data: yValues_reality,
+      borderColor: "blue",
+      label: "Actual Burndown"
+    }, { 
+      fill: false,
+      data: yValues_done,
+      borderColor: "green",
+      label: "time spent daily"
+    }]
+  },
+
+  options: {
+    legend: {display: false},
+    title: {display:true,text:"Brundown chart "},
+    scales: {
+      yAxes: [{
+        
+        ticks: {min: 0, max:100},  /*probabily have to set the max to the sum of story points in the sprint idk how to*/
+         scaleLabel: {
+        display: true,
+        labelString: 'Story Points'}
+        
+    
+      }],
+      xAxes: [{scaleLabel: {
+        display: true,
+        labelString: 'Date'}}]
+  
+  }
+  }
+});
+</script>
+
+</body>
+</html>
+
+
