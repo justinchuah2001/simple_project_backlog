@@ -331,6 +331,7 @@ function filterObjects(c){
         }
     }
 }
+
 function sort(){
     x = document.getElementById("sortOptions")
     x.showModal();
@@ -346,7 +347,29 @@ function sort(){
     })
 }
 
-function deleteModal(id) {
+function sortObjects(c){
+    var x;
+    x = retrieveLSData()
+    let cardHolderRef = document.getElementById("cards")
+    cardHolderRef.innerHTML = ``
+    console.log(x.length);
+    let newlst = []
+    console.log(newlst.length)
+    x.sort(function(a, b){
+        if(a._taskName.toLowerCase() < b._taskName.toLowerCase()) { return -1; }
+        if(a._taskName.toLowerCase() > b._taskName.toLowerCase()) { return 1; }
+        return 0;
+    })      
+    if (c == "desc"){
+        x.reverse();
+        console.log(c)
+    }    
+    console.log(x)
+    let sortedData = JSON.stringify(x)
+    localStorage.setItem("cards", sortedData)
+    showCard()
+}
+function deleteModal(id) { 
     if (confirm("Are you sure you want to delete this task?") == true) {
         let oldData = retrieveLSData()
         if (id - 1 == 0) {
