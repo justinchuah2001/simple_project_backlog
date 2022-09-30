@@ -1,5 +1,7 @@
 function createCard() {
+    //References
     const modal = document.getElementById("modalCreate")
+    //const saveModal = document.getElementById("saveTask")
     const cancelModal = document.getElementById("cancelTask")
 
     modal.showModal(); // Makes the prompt appear
