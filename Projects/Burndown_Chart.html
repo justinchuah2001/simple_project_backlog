@@ -51,18 +51,18 @@ new Chart("myChart", {
       fill: false,
       data: yValues_reality,
       borderColor: "blue",
-      label: "Actual Burndown"
+      label: "Actual Burndown",
     }, { 
       fill: false,
       data: yValues_done,
       borderColor: "green",
-      label: "time spent daily"
+      label: "time spent daily",
     }]
   },
 
   options: {
-    legend: {display: false},
-    title: {display:true,text:"Brundown chart "},
+    legend: {useLineStyle: true},
+    title: {display:true,text:"Burndown Chart "},
     scales: {
       yAxes: [{
         
