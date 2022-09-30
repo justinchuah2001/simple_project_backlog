@@ -416,9 +416,8 @@ function deleteModal(id) {
 function createSprint() {
     let sprints = retrieveLSDataSprints()
     modal = document.getElementById("sprintCreate")
-
+    availableTasks()
     modal.showModal(); // Makes the prompt appear
-
     //Closes the modal window once anything outside the window is clicked
     window.onclick = function (event) {
         if (event.target == modal) {
