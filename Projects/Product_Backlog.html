@@ -29,6 +29,44 @@
                     style="margin: 10px; color: white; background-color:#6E85B7; font-family:Verdana;">
                     Create
                 </button>
+                <button class="mdl-button mdl-js-button mdl-button--raised" id="filterCard" onclick="filter()"
+                    style="margin: 10px;">
+                    Filter
+                </button>
+                <dialog class="filter" id="filterOptions">
+                    <h3>Filter Options</h3>
+                    <button class="mdl-button mdl-js-button mdl-button--raised" id="showAllCards" onclick="filterObjects('all')"
+                    style="margin: 10px; color: white; background-color:#6E85B7; font-family:Verdana;">
+                    Show All
+                    </button>
+                    <button class="mdl-button mdl-js-button mdl-button--raised" id="highPriorityCards" onclick="filterObjects('High')"
+                    style="margin: 10px;">
+                    High Priority
+                    </button>
+                    <button class="mdl-button mdl-js-button mdl-button--raised" id="midPriorityCards" onclick="filterObjects('Medium')"
+                    style="margin: 10px; color: white; background-color:#6E85B7; font-family:Verdana;">
+                    Mid Priority
+                    </button>
+                    <button class="mdl-button mdl-js-button mdl-button--raised" id="lowPriorityCards" onclick="filterObjects('Low')"
+                    style="margin: 10px;">
+                    Low Priority
+                    </button>
+                </dialog>
+                <button class="mdl-button mdl-js-button mdl-button--raised" id="sortCard" onclick="sort()"
+                    style="margin: 10px;">
+                    Sort
+                </button>
+                <dialog class="sort" id="sortOptions">
+                    <h3>Sort Options</h3>
+                    <button class="mdl-button mdl-js-button mdl-button--raised" id="ascending" onclick="sortObjects('asc')" 
+                    style="margin: 10px;">
+                    Ascending
+                    </button>
+                    <button class="mdl-button mdl-js-button mdl-button--raised" id="descending" onclick="sortObjects('desc')"
+                    style="margin: 10px;">
+                    Descending
+                    </button>
+                </dialog>
                 <!--This is the creation modal-->
                 <dialog class="modal" id="modalCreate">
                     <h3>Task Details</h3>
@@ -40,7 +78,10 @@
                         <select id="assignedMembers" name="" style="width: 100px;">
                             <option>Justin</option>
                             <option>CC</option>
-                            <option>Bob</option>
+                            <option>Zac</option>
+                            <option>Sherline</option>
+                            <option>Bingsen</option>
+                            <option>Prateek</option>
                         </select>
                         <br>
 

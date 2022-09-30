@@ -1,7 +1,6 @@
 function createCard() {
     //References
     const modal = document.getElementById("modalCreate")
-    //const saveModal = document.getElementById("saveTask")
     const cancelModal = document.getElementById("cancelTask")
 
     modal.showModal(); // Makes the prompt appear
@@ -125,7 +124,6 @@ function showCard() {
         </div>`
         }
     }
-
 }
 
 function saveModal() {
@@ -194,8 +192,183 @@ function showCardDetails(id) {
         modalEdit.close();
     })
 }
+function filter(){
+    x = document.getElementById("filterOptions")
+    x.showModal();
 
-function deleteModal(id) {
+    window.onclick = function (event) {
+        if (event.target == x) {
+            x.close();
+        }
+    }
+    cancelModal.addEventListener("click", () => {
+        x.close();
+        clearFields()
+    })
+}
+
+function filterObjects(c){
+    var x,i;
+    x = retrieveLSData()
+    let cardHolderRef = document.getElementById("cards")
+    cardHolderRef.innerHTML = ``
+    if(c != "all"){
+        for (i = 0; i<x.length; i++)
+        {
+            if (x[i]._priority == c) {
+                if(c == "High"){
+                    cardHolderRef.innerHTML += `<div class="card1" id="card${i}">
+                    <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
+                    <div class="card-body">
+                        <div> Team member: <span id="assignedMember${i}">${x[i]._assginee}</span> </div>
+                        <div>Priority: <span id="priority${i}">${x[i]._priority}</span> </div>
+                        <div>Tags: <span id="tags${i}">${x[i]._tags}</span> </div>
+                        <div>Status: <span id="status${i}">${x[i]._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${i}">${x[i]._storyPoints}</span> </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                    </div>
+                </div>`
+                }
+                if(c == "Medium"){
+                    cardHolderRef.innerHTML += `<div class="card2" id="card${i}">
+                    <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
+                    
+                    <div class="card-body">
+                        <div> Team member: <span id="assignedMember${i}">${x[i]._assginee}</span> </div>
+                        <div>Priority: <span id="priority${i}">${x[i]._priority}</span> </div>
+                        <div>Tags: <span id="tags${i}">${x[i]._tags}</span> </div>
+                        <div>Status: <span id="status${i}">${x[i]._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${i}">${x[i]._storyPoints}</span> </div>
+                        
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                    </div>
+                </div>`
+                }
+                if(c == "Low"){
+                    cardHolderRef.innerHTML += `<div class="card3" id="card${i}">
+                    <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
+                
+                    <div class="card-body">
+                        <div> Team member: <span id="assignedMember${i}">${x[i]._assginee}</span> </div>
+                        <div>Priority: <span id="priority${i}">${x[i]._priority}</span> </div>
+                        <div>Tags: <span id="tags${i}">${x[i]._tags}</span> </div>
+                        <div>Status: <span id="status${i}">${x[i]._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${i}">${x[i]._storyPoints}</span> </div>
+                        
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                    </div>
+                </div>`
+                }
+            }
+        }
+    }
+    else{
+        for (i = 0; i<x.length; i++)
+        {
+                if(x[i]._priority == "High"){
+                    cardHolderRef.innerHTML += `<div class="card1" id="card${i}">
+                    <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
+                    <div class="card-body">
+                        <div> Team member: <span id="assignedMember${i}">${x[i]._assginee}</span> </div>
+                        <div>Priority: <span id="priority${i}">${x[i]._priority}</span> </div>
+                        <div>Tags: <span id="tags${i}">${x[i]._tags}</span> </div>
+                        <div>Status: <span id="status${i}">${x[i]._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${i}">${x[i]._storyPoints}</span> </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                    </div>
+                </div>`
+                }
+                if(x[i]._priority == "Medium"){
+                    cardHolderRef.innerHTML += `<div class="card2" id="card${i}">
+                    <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
+                    
+                    <div class="card-body">
+                        <div> Team member: <span id="assignedMember${i}">${x[i]._assginee}</span> </div>
+                        <div>Priority: <span id="priority${i}">${x[i]._priority}</span> </div>
+                        <div>Tags: <span id="tags${i}">${x[i]._tags}</span> </div>
+                        <div>Status: <span id="status${i}">${x[i]._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${i}">${x[i]._storyPoints}</span> </div>
+                        
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                    </div>
+                </div>`
+                }
+                if(x[i]._priority == "Low"){
+                    cardHolderRef.innerHTML += `<div class="card3" id="card${i}">
+                    <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
+                
+                    <div class="card-body">
+                        <div> Team member: <span id="assignedMember${i}">${x[i]._assginee}</span> </div>
+                        <div>Priority: <span id="priority${i}">${x[i]._priority}</span> </div>
+                        <div>Tags: <span id="tags${i}">${x[i]._tags}</span> </div>
+                        <div>Status: <span id="status${i}">${x[i]._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${i}">${x[i]._storyPoints}</span> </div>
+                        
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                    </div>
+                </div>`
+                }
+            
+        }
+    }
+}
+
+function sort(){
+    x = document.getElementById("sortOptions")
+    x.showModal();
+
+    window.onclick = function (event) {
+        if (event.target == x) {
+            x.close();
+        }
+    }
+    cancelModal.addEventListener("click", () => {
+        x.close();
+        clearFields()
+    })
+}
+
+function sortObjects(c){
+    var x;
+    x = retrieveLSData()
+    let cardHolderRef = document.getElementById("cards")
+    cardHolderRef.innerHTML = ``
+    console.log(x.length);
+    let newlst = []
+    console.log(newlst.length)
+    x.sort(function(a, b){
+        if(a._taskName.toLowerCase() < b._taskName.toLowerCase()) { return -1; }
+        if(a._taskName.toLowerCase() > b._taskName.toLowerCase()) { return 1; }
+        return 0;
+    })      
+    if (c == "desc"){
+        x.reverse();
+        console.log(c)
+    }    
+    console.log(x)
+    let sortedData = JSON.stringify(x)
+    localStorage.setItem("cards", sortedData)
+    showCard()
+}
+function deleteModal(id) { 
     if (confirm("Are you sure you want to delete this task?") == true) {
         let oldData = retrieveLSData()
         if (id - 1 == 0) {
@@ -214,7 +387,7 @@ function deleteModal(id) {
 /////SPRINT BACKLOG
 function createSprint() {
     const modal = document.getElementById("sprintCreate")
-    const cancelModal = document.getElementById("cancelTask")
+    const cancelModal = document.getElementById("cancelSprint")
 
     modal.showModal(); // Makes the prompt appear
 
@@ -238,7 +411,7 @@ function sprintCreate()
     // Initizalizing tasks(card)
     let card = new Tasks();
     // Retrieving input field values
-    card.sprintName = document.getElementById("formName").value
+    card.sprintNumber = document.getElementById("formName").value
     card.sprintStatus = document.getElementById("sprintStatus").value
     card.startDate = document.getElementById("startDate").value
     card.endDate = document.getElementById("endDate").value
@@ -248,7 +421,7 @@ function sprintCreate()
     if (checkValidity(card) == true) {
         cards.push(card)
         updateLSData(cards)
-        showCard(card)
+        showSprint(card)
         modal.close();
         setTimeout(clearFields, 300)
     }
@@ -258,14 +431,14 @@ function sprintCreate()
 // Function to clear fields
 function clearFields() {
     //Getting references
-    let sprintName = document.getElementById("formName").value
+    let sprintNumber = document.getElementById("formName").value
     let sprintStatus = document.getElementById("sprintStatus").value
     let startDate = document.getElementById("startDate").value
     let endDate = document.getElementById("endDate").value
     let tasks = document.getElementById("tasks").value
 
     //Resetting values
-    sprintName.value = ""
+    sprintNumber.value = ""
     sprintStatus.value = ""
     startDate.value = ""
     endDate.value = ""
@@ -284,7 +457,7 @@ function showSprint() {
             cardHolderRef.innerHTML += `<div class="card" id="card${id_num}">
             <div class="card-header">
             
-            <span id="formName${id_num}">${card._sprintName}</span></div>
+            <span id="formName${id_num}">${card._sprintNumber}</span></div>
 
             <div class="card-body">
                 <div> Sprint Status: <span id="assignedMember${id_num}">${card._sprintStatus}</span> </div>
@@ -295,13 +468,7 @@ function showSprint() {
 
             </div>
             <div class="card-footer">
-                <button class="btn btn-outline" onclick = "showCardDetails(${id_num})">Edit</button>
-                <button class="btn" onclick = "deleteModal(${id_num})">Delete</button>
-            </div>
-        </div>
-
-            <div class="card-footer">
-                <button class="btn btn-outline" onclick = "showCardDetails(${id_num})">Edit</button>
+                <button class="btn btn-outline" onclick = "showSprintDetails(${id_num})">Edit</button>
                 <button class="btn" onclick = "deleteModal(${id_num})">Delete</button>
             </div>
         </div>`
@@ -316,55 +483,61 @@ function saveSprint() {
     // Initizalizing tasks(card)
     let card = new Tasks();
     // Retrieving input field values
-    sprintName = document.getElementById("formName").value
+    sprintNumber = document.getElementById("sprintNumber").value
     sprintStatus = document.getElementById("sprintStatus").value
     startDate = document.getElementById("startDate").value
     endDate = document.getElementById("endDate").value
-    tasks = document.getElementById("tasks").value
+    //tasks = document.getElementById("tasks").value
 
     //Ensuring no empty fields
-    if (checkValidity(card) == true) {
-        cards.push(card)
-        updateLSData(cards)
-        showCard(card)
-        modal.close();
-        setTimeout(clearFields, 300)
-    }
+    // if (checkValidity(card) == true) {
+    //     cards.push(card)
+    //     updateLSData(cards)
+    //     showSprint(card)
+    //     modal.close();
+    //     setTimeout(clearFields, 300)
+    // }
+
+    cards.push(card)
+    updateLSData(cards)
+    showSprint(card)        
+    modal.close()
+
 }
 
 function showSprintDetails(id) {
     //References
-    const modalEdit = document.getElementById("modalEdit")
+    const sprintEdit = document.getElementById("sprintEdit")
     const applyModal = document.getElementById("applyTask")
     const closeModal = document.getElementById("closeCard")
     let cards = retrieveLSData()
     let data = cards[id - 1]
-    document.getElementById("sprintNameEdit").value = data._sprintName
+    document.getElementById("sprintNumberEdit").value = data._sprintNumber
     document.getElementById("sprintStatusEdit").value = data._sprintStatus
     document.getElementById("startDateEdit").value = data._startDate
     document.getElementById("endDateEdit").value = data._endDate
     document.getElementById("tasksEdit").value = data._tasks
-    modalEdit.showModal(); // Makes the prompt appear
+    sprintEdit.showModal(); // Makes the prompt appear
 
     applyModal.addEventListener("click", () => {
-        data._sprintName = document.getElementById("sprintNameEdit").value
+        data._sprintNumber = document.getElementById("sprintNumberEdit").value
         data._sprintStatus = document.getElementById("sprintStatusEdit").value
         data._startDate = document.getElementById("startDateEdit").value
         data._endDate = document.getElementById("endDateEdit").value
         data._tasks = document.getElementById("tasksEdit").value
 
         localStorage.setItem("cards", JSON.stringify(cards))
-        modalEdit.close()
-        showCard() // Update the changes
+        sprintEdit.close()
+        showSprint() // Update the changes
     })
     //Closes the modal window once anything outside the window is clicked
     window.onclick = function (event) {
-        if (event.target == modalEdit) {
-            modalEdit.close();
+        if (event.target == sprintEdit) {
+            sprintEdit.close();
         }
     }
 
     closeModal.addEventListener("click", () => {
-        modalEdit.close();
+        sprintEdit.close();
     })
 }
