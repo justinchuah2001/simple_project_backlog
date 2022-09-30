@@ -320,7 +320,6 @@ function saveSprint() {
     endDate = document.getElementById("endDate").value
     tasks = document.getElementById("tasks").value
 
-
     //Ensuring no empty fields
     if (checkValidity(card) == true) {
         cards.push(card)
