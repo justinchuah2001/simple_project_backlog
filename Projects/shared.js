@@ -11,7 +11,6 @@ class Tasks
         this._storyPoints = 0;
         this._type = "";
         this._details = "";
-        this._inSprint = false;
     }
     
     //Accessor
@@ -23,7 +22,6 @@ class Tasks
     get storyPoints() {return this._storyPoints};
     get type() {return this._type};
     get details() {return this._details}
-    get inSprint() {return this._inSprint}
     
     //Mutators
     set taskName(newTaskName)
@@ -57,10 +55,6 @@ class Tasks
     set details(newDetails)
     {
         this._details = newDetails;
-    }
-    set inSprint(newSprintStatus)
-    {
-        this._inSprint = newSprintStatus
     }
 
 }

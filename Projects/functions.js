@@ -386,7 +386,8 @@ function deleteModal(id) {
 
 /////SPRINT BACKLOG
 function createSprint() {
-    modal = document.getElementById("sprintCreate")
+    const modal = document.getElementById("sprintCreate")
+    const cancelModal = document.getElementById("cancelSprint")
 
     modal.showModal(); // Makes the prompt appear
 
@@ -396,61 +397,13 @@ function createSprint() {
             modal.close();
         }
     }
+
+    cancelModal.addEventListener("click", () => {
+        modal.close();
+        clearFields()
+    })
 }
 
-function closeModalSprint(){
-    document.getElementById("sprintCreate").close()
-    document.getElementById("sprintCreate").innerHTML = `<h3>Sprint Details</h3>
-    <form>
-        <label class="inputFields">Sprint: <input type="text" id="sprintNumber" placeholder="sprintNumber"></label>
-        <br>
-        
-        <label class="inputFields">Status: </label>
-        <select id="sprintStatus" name="" style="width: 100px;">
-            <option style='background-color:red;'>Inactive</option>
-            <option style='background-color:yellow;'>Active</option>
-            <option style='background-color:green;'>Completed</option>
-        </select>
-        <br>
-
-        <label class="inputFields">Start date:</label>
-        <input type="date" id="startDate" name="">
-        <br>
-
-        <label class="inputFields">End date:</label>
-        <input type="date" id="endDate" name="">
-        <br>
-
-
-    </form>
-    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;" id="saveSprint"
-        onclick="saveSprint()">Save </button>
-    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;"
-        id="cancelSprint" onclick="closeModalSprint()">Cancel</button>
-    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;"
-        id="showTasks" onclick="availableTasks()">Show Tasks</button>
-    <br>`
-}
-
-function availableTasks(){
-    let currentData = retrieveLSData()
-    let availableTask = false
-    temp = `   <label class="inputFields">Tasks:</label> <br>
-    <form action="/action_page.php" id ="availableTasks">`
-    for (let i=0; i<currentData.length; i++)
-    {
-        if (currentData[i]._inSprint == false){
-            temp+=`<input type="checkbox" id="task${i}" name="${currentData[i]._taskName}" value="${i}">
-            <label for="task${i}"> ${currentData[i]._taskName}</label><br>`
-            availableTask = true
-        }
-    }
-    temp+= `</form>`
-    if (availableTask == true){
-        document.getElementById("sprintCreate").innerHTML += temp
-        }
-    }
-    
 function sprintCreate()
 {
     const modal = document.getElementById("sprintCreate")
@@ -470,13 +423,13 @@ function sprintCreate()
         updateLSData(cards)
         showSprint(card)
         modal.close();
-        setTimeout(clearFieldsSprint, 300)
+        setTimeout(clearFields, 300)
     }
 }
 
 
 // Function to clear fields
-function clearFieldsSprint() {
+function clearFields() {
     //Getting references
     let sprintNumber = document.getElementById("formName").value
     let sprintStatus = document.getElementById("sprintStatus").value
@@ -494,7 +447,7 @@ function clearFieldsSprint() {
 
 
 
-/* function showSprint() {
+function showSprint() {
     //Reference to card holders
     let cardHolderRef = document.getElementById("cards")
     cardHolderRef.innerHTML = `` //Temporary measure to be revisited
@@ -521,7 +474,7 @@ function clearFieldsSprint() {
         </div>`
         }
     }
- */
+
 
 
 function saveSprint() {
