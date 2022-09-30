@@ -64,3 +64,30 @@ class Tasks
     }
 
 }
+
+class Sprints
+{
+    constructor()
+    {
+        this._sprintName = ""
+        this._sprintStatus = ""
+        this._sprintStart = ""
+        this._sprintEnd = ""
+        this._sprintTasks = []
+        this._sprintTasksId = []
+    }
+    
+    get sprintName() {return this._sprintName}
+    get sprintStatus() {return this._sprintStatus}
+    get sprintStart() {return this._sprintStart}
+    get sprintEnd() {return this._sprintEnd}
+    get sprintTasks() {return this._sprintTasks}
+    get sprintTasksId() {return this._sprintTasksId}
+
+    set sprintName(newSprintName){ this._sprintName = newSprintName}
+    set sprintStatus(newSprintStatus){ this._sprintStatus = newSprintStatus}
+    set sprintStart(newSprintStart){ this._sprintStart = newSprintStart}
+    set sprintEnd(newSprintEnd){ this._sprintEnd = newSprintEnd}
+    set sprintTasks(newSprintTasks){ this._sprintTasks = newSprintTasks}
+    set sprintTasksId(newSprintTasksId){ this._sprintTasksId = newSprintTasksId}
+}
