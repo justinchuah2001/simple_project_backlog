@@ -587,7 +587,6 @@ function showSprintDetails(id) {
     document.getElementById("sprintStatusEdit").value = data._sprintStatus
     document.getElementById("startDateEdit").value = data._startDate
     document.getElementById("endDateEdit").value = data._endDate
-    document.getElementById("tasksEdit").value = data._tasks
     sprintEdit.showModal(); // Makes the prompt appear
 
     applyModal.addEventListener("click", () => {
@@ -595,7 +594,6 @@ function showSprintDetails(id) {
         data._sprintStatus = document.getElementById("sprintStatusEdit").value
         data._startDate = document.getElementById("startDateEdit").value
         data._endDate = document.getElementById("endDateEdit").value
-        data._tasks = document.getElementById("tasksEdit").value
 
         localStorage.setItem("cards", JSON.stringify(cards))
         sprintEdit.close()
