@@ -517,6 +517,7 @@ function sprintCreate()
         updateLSDataSprints(sprints)
         showSprint()
         closeModalSprint()
+        window.location.reload()
     }
 }
 
