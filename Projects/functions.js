@@ -411,7 +411,7 @@ function sprintCreate()
     // Initizalizing tasks(card)
     let card = new Tasks();
     // Retrieving input field values
-    card.sprintNumber = document.getElementById("formName").value
+    card.sprintNumber = document.getElementById("sprintNumber").value
     card.sprintStatus = document.getElementById("sprintStatus").value
     card.startDate = document.getElementById("startDate").value
     card.endDate = document.getElementById("endDate").value
@@ -431,7 +431,7 @@ function sprintCreate()
 // Function to clear fields
 function clearFields() {
     //Getting references
-    let sprintNumber = document.getElementById("formName").value
+    let sprintNumber = document.getElementById("sprintNumber").value
     let sprintStatus = document.getElementById("sprintStatus").value
     let startDate = document.getElementById("startDate").value
     let endDate = document.getElementById("endDate").value
@@ -457,7 +457,7 @@ function showSprint() {
             cardHolderRef.innerHTML += `<div class="card" id="card${id_num}">
             <div class="card-header">
             
-            <span id="formName${id_num}">${card._sprintNumber}</span></div>
+            <span id="sprintNumber${id_num}">${card._sprintNumber}</span></div>
 
             <div class="card-body">
                 <div> Sprint Status: <span id="assignedMember${id_num}">${card._sprintStatus}</span> </div>
@@ -469,13 +469,13 @@ function showSprint() {
             </div>
             <div class="card-footer">
                 <button class="btn btn-outline" onclick = "showSprintDetails(${id_num})">Edit</button>
-                <button class="btn" onclick = "deleteModal(${id_num})">Delete</button>
+                <button class="btn" onclick = "deleteSprint(${id_num})">Delete</button>
             </div>
         </div>
 
             <div class="card-footer">
                 <button class="btn btn-outline" onclick = "showSprintDetails(${id_num})">Edit</button>
-                <button class="btn" onclick = "deleteModal(${id_num})">Delete</button>
+                <button class="btn" onclick = "deleteSprint(${id_num})">Delete</button>
             </div>
         </div>`
         }
@@ -546,4 +546,20 @@ function showSprintDetails(id) {
     closeModal.addEventListener("click", () => {
         modalEdit.close();
     })
+}
+
+function deleteSprint(id) { 
+    if (confirm("Are you sure you want to delete this sprint?") == true) {
+        let oldData = retrieveLSData()
+        if (id - 1 == 0) {
+            oldData.splice(0, 1)
+        }
+        else {
+            oldData.splice(id - 1, 1)
+        }
+
+        let newData = JSON.stringify(oldData)
+        localStorage.setItem("cards", newData)
+        showSprint() //Reupdate page with new ID
+    }
 }
