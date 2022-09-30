@@ -471,12 +471,6 @@ function showSprint() {
                 <button class="btn btn-outline" onclick = "showSprintDetails(${id_num})">Edit</button>
                 <button class="btn" onclick = "deleteModal(${id_num})">Delete</button>
             </div>
-        </div>
-
-            <div class="card-footer">
-                <button class="btn btn-outline" onclick = "showSprintDetails(${id_num})">Edit</button>
-                <button class="btn" onclick = "deleteModal(${id_num})">Delete</button>
-            </div>
         </div>`
         }
     }
@@ -513,7 +507,7 @@ function saveSprint() {
 
 function showSprintDetails(id) {
     //References
-    const modalEdit = document.getElementById("modalEdit")
+    const sprintEdit = document.getElementById("sprintEdit")
     const applyModal = document.getElementById("applyTask")
     const closeModal = document.getElementById("closeCard")
     let cards = retrieveLSData()
@@ -523,7 +517,7 @@ function showSprintDetails(id) {
     document.getElementById("startDateEdit").value = data._startDate
     document.getElementById("endDateEdit").value = data._endDate
     document.getElementById("tasksEdit").value = data._tasks
-    modalEdit.showModal(); // Makes the prompt appear
+    sprintEdit.showModal(); // Makes the prompt appear
 
     applyModal.addEventListener("click", () => {
         data._sprintNumber = document.getElementById("sprintNumberEdit").value
@@ -533,17 +527,17 @@ function showSprintDetails(id) {
         data._tasks = document.getElementById("tasksEdit").value
 
         localStorage.setItem("cards", JSON.stringify(cards))
-        modalEdit.close()
+        sprintEdit.close()
         showSprint() // Update the changes
     })
     //Closes the modal window once anything outside the window is clicked
     window.onclick = function (event) {
-        if (event.target == modalEdit) {
-            modalEdit.close();
+        if (event.target == sprintEdit) {
+            sprintEdit.close();
         }
     }
 
     closeModal.addEventListener("click", () => {
-        modalEdit.close();
+        sprintEdit.close();
     })
 }
