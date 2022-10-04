@@ -99,10 +99,10 @@ function showCard() {
         {
             continue
         }
-        if (card._priority === "Low") {
-            cardHolderRef.innerHTML += `<div class="card1" id="card${id_num}">
+        if (card._priority === "High") {
+            cardHolderRef.innerHTML += `<div class="card1" id="card${id_num}" ">
             <div class="card-header"><span id="formName${id_num}">${card._taskName}</span></div>
-            <div class="card-body">
+            <div class="card-body" >
                 <div> Team member: <span id="assignedMember${id_num}">${card._assginee}</span> </div>
                 <div>Priority: <span id="priority${id_num}">${card._priority}</span> </div>
                 <div>Tags: <span id="tags${id_num}">${card._tags}</span> </div>
@@ -110,13 +110,14 @@ function showCard() {
                 <div>Story Points: <span id="storyPoints${id_num}">${card._storyPoints}</span> </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-outline" onclick = "showCardDetails(${id_num})">Edit</button>
+                <button class="btn btn-outline" onclick = "editCardDetails(${id_num})">Edit</button>
                 <button class="btn" onclick = "deleteModal(${id_num})">Delete</button>
+                <button class="btn" onclick = "viewCardDetails(${id_num})">View</button>
             </div>
         </div>`
         }
         if (card._priority === "Medium") {
-            cardHolderRef.innerHTML += `<div class="card2" id="card${id_num}">
+            cardHolderRef.innerHTML += `<div class="card2" id="card${id_num}" >
             <div class="card-header"><span id="formName${id_num}">${card._taskName}</span></div>
             
             <div class="card-body">
@@ -128,13 +129,14 @@ function showCard() {
                 
             </div>
             <div class="card-footer">
-                <button class="btn btn-outline" onclick = "showCardDetails(${id_num})">Edit</button>
+                <button class="btn btn-outline" onclick = "editCardDetails(${id_num})">Edit</button>
                 <button class="btn" onclick = "deleteModal(${id_num})">Delete</button>
+                <button class="btn" onclick = "viewCardDetails(${id_num})">View</button>
             </div>
         </div>`
         }
-        if (card._priority === "High") {
-            cardHolderRef.innerHTML += `<div class="card3" id="card${id_num}">
+        if (card._priority === "Low") {
+            cardHolderRef.innerHTML += `<div class="card3" id="card${id_num}" >
             <div class="card-header"><span id="formName${id_num}">${card._taskName}</span></div>
         
             <div class="card-body">
@@ -146,8 +148,9 @@ function showCard() {
                 
             </div>
             <div class="card-footer">
-                <button class="btn btn-outline" onclick = "showCardDetails(${id_num})">Edit</button>
+                <button class="btn btn-outline" onclick = "editCardDetails(${id_num})">Edit</button>
                 <button class="btn" onclick = "deleteModal(${id_num})">Delete</button>
+                <button class="btn" onclick = "viewCardDetails(${id_num})">View</button>
             </div>
         </div>`
         }
@@ -179,7 +182,7 @@ function saveModal() {
     }
 }
 
-function showCardDetails(id) {
+function editCardDetails(id) {
     //References
     const modalEdit = document.getElementById("modalEdit")
     const applyModal = document.getElementById("applyTask")
@@ -220,6 +223,39 @@ function showCardDetails(id) {
         modalEdit.close();
     })
 }
+function viewCardDetails(id){
+    //References
+    const modalView = document.getElementById("modalView")
+    const closeModalView = document.getElementById("closeCardView")
+    const editModalView = document.getElementById("editTask")
+    let cards = retrieveLSDataCards()
+    let data = cards[id - 1]
+    document.getElementById("formNameView").value = data._taskName
+    document.getElementById("assignedMembersView").value = data._assginee
+    document.getElementById("priorityView").value = data._priority
+    document.getElementById("tagsView").value = data._tags
+    document.getElementById("statusView").value = data._status
+    document.getElementById("storyPointsView").value = data._storyPoints
+    document.getElementById("detailsView").value = data._details
+    document.getElementById("typeView").value = data._type
+    modalView.showModal(); // Makes the prompt appear
+    //Closes the modal window once anything outside the window is clicked
+    window.onclick = function (event) {
+        if (event.target == modalEdit) {
+            modalView.close();
+        }
+    }
+    
+    editModalView.addEventListener("click", () => {
+        modalView.close()
+        editCardDetails(id)
+    } ,{once:true})
+    
+    closeModalView.addEventListener("click", () => {
+        modalView.close();
+    })
+
+}
 function filter(){
     x = document.getElementById("filterOptions")
     x.showModal();
@@ -229,10 +265,6 @@ function filter(){
             x.close();
         }
     }
-    cancelModal.addEventListener("click", () => {
-        x.close();
-        clearFields()
-    })
 }
 
 function filterObjects(c){
@@ -243,9 +275,13 @@ function filterObjects(c){
     if(c != "all"){
         for (i = 0; i<x.length; i++)
         {
+            if (x[i]._inSprint == true)
+            {
+                continue
+            }
             if (x[i]._priority == c) {
                 if(c == "High"){
-                    cardHolderRef.innerHTML += `<div class="card1" id="card${i}">
+                    cardHolderRef.innerHTML += `<div class="card1" id="card${i}" >
                     <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
                     <div class="card-body">
                         <div> Team member: <span id="assignedMember${i}">${x[i]._assginee}</span> </div>
@@ -255,13 +291,14 @@ function filterObjects(c){
                         <div>Story Points: <span id="storyPoints${i}">${x[i]._storyPoints}</span> </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn btn-outline" onclick = "editCardDetails(${i})">Edit</button>
                         <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                        <button class="btn" onclick = "viewCardDetails(${i})">View</button>
                     </div>
                 </div>`
                 }
                 if(c == "Medium"){
-                    cardHolderRef.innerHTML += `<div class="card2" id="card${i}">
+                    cardHolderRef.innerHTML += `<div class="card2" id="card${i}" >
                     <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
                     
                     <div class="card-body">
@@ -273,13 +310,14 @@ function filterObjects(c){
                         
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn btn-outline" onclick = "editCardDetails(${i})">Edit</button>
                         <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                        <button class="btn" onclick = "viewCardDetails(${i})">View</button>
                     </div>
                 </div>`
                 }
                 if(c == "Low"){
-                    cardHolderRef.innerHTML += `<div class="card3" id="card${i}">
+                    cardHolderRef.innerHTML += `<div class="card3" id="card${i}" >
                     <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
                 
                     <div class="card-body">
@@ -291,8 +329,9 @@ function filterObjects(c){
                         
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn btn-outline" onclick = "editCardDetails(${i})">Edit</button>
                         <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                        <button class="btn" onclick = "viewCardDetails(${i})">View</button>
                     </div>
                 </div>`
                 }
@@ -302,8 +341,12 @@ function filterObjects(c){
     else{
         for (i = 0; i<x.length; i++)
         {
+            if (x[i]._inSprint == true)
+            {
+                continue
+            }
                 if(x[i]._priority == "High"){
-                    cardHolderRef.innerHTML += `<div class="card1" id="card${i}">
+                    cardHolderRef.innerHTML += `<div class="card1" id="card${i}" >
                     <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
                     <div class="card-body">
                         <div> Team member: <span id="assignedMember${i}">${x[i]._assginee}</span> </div>
@@ -313,13 +356,14 @@ function filterObjects(c){
                         <div>Story Points: <span id="storyPoints${i}">${x[i]._storyPoints}</span> </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn btn-outline" onclick = "editCardDetails(${i})">Edit</button>
                         <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                        <button class="btn" onclick = "viewCardDetails(${i})">View</button>
                     </div>
                 </div>`
                 }
                 if(x[i]._priority == "Medium"){
-                    cardHolderRef.innerHTML += `<div class="card2" id="card${i}">
+                    cardHolderRef.innerHTML += `<div class="card2" id="card${i}" >
                     <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
                     
                     <div class="card-body">
@@ -331,13 +375,14 @@ function filterObjects(c){
                         
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn btn-outline" onclick = "editCardDetails(${i})">Edit</button>
                         <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                        <button class="btn" onclick = "viewCardDetails(${i})">View</button>
                     </div>
                 </div>`
                 }
                 if(x[i]._priority == "Low"){
-                    cardHolderRef.innerHTML += `<div class="card3" id="card${i}">
+                    cardHolderRef.innerHTML += `<div class="card3" id="card${i}" >
                     <div class="card-header"><span id="formName${i}">${x[i]._taskName}</span></div>
                 
                     <div class="card-body">
@@ -349,8 +394,9 @@ function filterObjects(c){
                         
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-outline" onclick = "showCardDetails(${i})">Edit</button>
+                        <button class="btn btn-outline" onclick = "editCardDetails(${i})">Edit</button>
                         <button class="btn" onclick = "deleteModal(${i})">Delete</button>
+                        <button class="btn" onclick = "viewCardDetails(${i})">View</button>
                     </div>
                 </div>`
                 }
@@ -368,10 +414,6 @@ function sort(){
             x.close();
         }
     }
-    cancelModal.addEventListener("click", () => {
-        x.close();
-        clearFields()
-    })
 }
 
 function sortObjects(c){
