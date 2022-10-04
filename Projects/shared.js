@@ -69,7 +69,7 @@ class Sprints
 {
     constructor()
     {
-        this._sprintName = ""
+        this._sprintNumber = ""
         this._sprintStatus = ""
         this._sprintStart = ""
         this._sprintEnd = ""
@@ -77,14 +77,14 @@ class Sprints
         this._sprintTasksId = []
     }
     
-    get sprintName() {return this._sprintName}
+    get sprintNumber() {return this._sprintNumber}
     get sprintStatus() {return this._sprintStatus}
     get sprintStart() {return this._sprintStart}
     get sprintEnd() {return this._sprintEnd}
     get sprintTasks() {return this._sprintTasks}
     get sprintTasksId() {return this._sprintTasksId}
 
-    set sprintName(newSprintName){ this._sprintName = newSprintName}
+    set sprintNumber(newSprintNumber){ this._sprintNumber = newSprintNunmber}
     set sprintStatus(newSprintStatus){ this._sprintStatus = newSprintStatus}
     set sprintStart(newSprintStart){ this._sprintStart = newSprintStart}
     set sprintEnd(newSprintEnd){ this._sprintEnd = newSprintEnd}
