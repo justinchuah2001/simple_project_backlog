@@ -200,10 +200,67 @@
     column-rule: 4px double #ff00ff;
   }
 
+  table {
+    width: 1000px;
+    margin-left:auto;
+    margin-right:auto
+  }
 
   h4 {
     text-align: center;
     font-size:20px;
   }
 
+  h2 {
+    text-align: center;
+    font-size:20px;
+  }
 
+  th{
+    text-align: left;
+
+  }
+
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-size: 15px;
+    font-family: Tahoma;
+  }
+
+  th,td {
+    padding: 10px;
+  }
+
+  .edit_button {
+    display: inline-block;
+    padding: 5px 5px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #A1C298;
+    border: none;
+    border-radius: 10%;
+  }
+  
+  .edit_button:hover {background-color: #C7F2A4}
+  
+  .delete_button {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #FF9494;
+    border: none;
+    border-radius: 10%;
+  }
+  
+  .delete_button:hover {background-color: #FFD1D1}
+  
