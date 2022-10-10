@@ -438,6 +438,7 @@ function sortObjects(c){
     localStorage.setItem("cards", sortedData)
     showCard()
 }
+
 function deleteModal(id) { 
     if (confirm("Are you sure you want to delete this task?") == true) {
         let oldData = retrieveLSDataCards()
@@ -463,7 +464,7 @@ function createSprint() {
     //Closes the modal window once anything outside the window is clicked
     window.onclick = function (event) {
         if (event.target == modal) {
-            modal.close();
+            closeModalSprint()
         }
     }
 }
@@ -497,8 +498,6 @@ function closeModalSprint(){
         onclick="sprintCreate()">Save </button>
     <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;"
         id="cancelSprint" onclick="closeModalSprint()">Cancel</button>
-    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;"
-        id="showTasks" onclick="availableTasks()">Show Tasks</button>
     <br>`
 }
 
@@ -568,6 +567,8 @@ function showSprint() {
     for (let id_num = 1; id_num < retrieveLSDataSprints().length + 1; id_num += 1) {
         let sprint = retrieveLSDataSprints()[id_num - 1]
         let sprintHolderRef = document.getElementById(sprint._sprintStatus)
+        if (sprint._sprintStatus == "Inactive")
+        {
             sprintHolderRef.innerHTML += `<div class="card" id="card${id_num}">
             <div class="card-header">
             
@@ -582,11 +583,51 @@ function showSprint() {
             </div>
             <div class="card-footer">
                 <button class="btn btn-outline" onclick = "showSprintDetails(${id_num})">Edit</button>
-                <button class="btn" onclick = "deleteModal(${id_num})">Delete</button>
+                <button class="btn" onclick = "deleteSprint(${id_num})">Delete</button>
+                <button class="btn" onclick = "viewSprint(${id_num})">View</button>
+            </div>
+            </div>`
+        }else if (sprint._sprintStatus == "Active")
+        {
+            sprintHolderRef.innerHTML += `<div class="card" id="card${id_num}">
+            <div class="card-header">
+            
+            <span id="formName${id_num}">${sprint._sprintNumber}</span></div>
+
+            <div class="card-body">
+                <div> Sprint Status: <span id="assignedMember${id_num}">${sprint._sprintStatus}</span> </div>
+
+                <div>Start Date: <span id="priority${id_num}">${sprint._sprintStart}</span> </div>
+                <div>End Date: <span id="tags${id_num}">${sprint._sprintEnd}</span> </div>
+
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-outline" onclick = "showSprintDetails(${id_num})">Edit</button>
+                <button class="btn" onclick = "viewSprint(${id_num})">View</button>
+            </div>
+        </div>`
+        }else if (sprint._sprintStatus == "Completed")
+        {
+            sprintHolderRef.innerHTML += `<div class="card" id="card${id_num}">
+            <div class="card-header">
+            
+            <span id="formName${id_num}">${sprint._sprintNumber}</span></div>
+
+            <div class="card-body">
+                <div> Sprint Status: <span id="assignedMember${id_num}">${sprint._sprintStatus}</span> </div>
+
+                <div>Start Date: <span id="priority${id_num}">${sprint._sprintStart}</span> </div>
+                <div>End Date: <span id="tags${id_num}">${sprint._sprintEnd}</span> </div>
+
+            </div>
+            <div class="card-footer">
+            <button class="btn" onclick = "viewSprint(${id_num})">View</button>
+            <br>
             </div>
         </div>`
         }
     }
+}
 
 
 
@@ -620,15 +661,26 @@ function saveSprint() {
 
 function showSprintDetails(id) {
     //References
-    const sprintEdit = document.getElementById("sprintEdit")
-    const applyModal = document.getElementById("applyTask")
-    const closeModal = document.getElementById("closeCard")
-    let cards = retrieveLSDataCards()
-    let data = cards[id - 1]
+    const sprintEdit = document.getElementById("sprintDetailsEdit")
+    const applyModal = document.getElementById("applySprintDetails")
+    const closeModal = document.getElementById("closeEditSprint")
+    let sprints = retrieveLSDataSprints()
+
+    let data = sprints[id-1]
     document.getElementById("sprintNumberEdit").value = data._sprintNumber
     document.getElementById("sprintStatusEdit").value = data._sprintStatus
-    document.getElementById("startDateEdit").value = data._startDate
-    document.getElementById("endDateEdit").value = data._endDate
+    document.getElementById("startDateEdit").value = data._sprintStart
+    document.getElementById("endDateEdit").value = data._sprintEnd
+    if (data._sprintStatus == "Active")
+    {
+        document.getElementById("sprintStatusEdit").disabled =true
+        document.getElementById("startDateEdit").disabled = true
+    }
+    else
+    {
+        document.getElementById("sprintStatusEdit").disabled =false
+        document.getElementById("startDateEdit").disabled = false
+    }
     sprintEdit.showModal(); // Makes the prompt appear
 
     applyModal.addEventListener("click", () => {
@@ -637,9 +689,11 @@ function showSprintDetails(id) {
         data._startDate = document.getElementById("startDateEdit").value
         data._endDate = document.getElementById("endDateEdit").value
 
-        localStorage.setItem("cards", JSON.stringify(cards))
+        localStorage.setItem("sprints", JSON.stringify(sprints))
         sprintEdit.close()
+
         showSprint() // Update the changes
+        window.location.reload()
     })
     //Closes the modal window once anything outside the window is clicked
     window.onclick = function (event) {
@@ -649,6 +703,113 @@ function showSprintDetails(id) {
     }
 
     closeModal.addEventListener("click", () => {
-        sprintEdit.close();
+        sprintEdit.close()
     })
 }
+
+function deleteSprint(id) { 
+    if (confirm("Are you sure you want to delete this sprint?") == true) {
+        let oldData = retrieveLSDataSprints()
+        let oldData_cards = retrieveLSDataCards()
+
+        for (let i=0; i<oldData[id-1]._sprintTasksId.length; i++)
+        {
+            oldData_cards[id-1]._inSprint = false
+        }
+        if (id - 1 == 0) {
+            oldData.splice(0, 1)
+        }
+        else {
+            oldData.splice(id - 1, 1)
+        }
+
+        let newData = JSON.stringify(oldData)
+        let newData_cards = JSON.stringify(oldData_cards)
+        localStorage.setItem("sprints", newData)
+        localStorage.setItem("cards",newData_cards)
+        showSprint() //Reupdate page with new ID
+        window.location.reload()
+    }
+}
+
+function viewSprint(id){
+    let sprints = retrieveLSDataSprints()
+    let cards = retrieveLSDataCards()
+    let sprintData = sprints[id-1]
+    let sprintStatus = sprints[id-1]._sprintStatus
+    if (sprintStatus == "Inactive")
+    {
+        localStorage.setItem("key", JSON.stringify(id))
+        window.location.href= "Sprint_Inactive.html"
+    }
+}
+
+function showCardsInactive(){
+    let id = JSON.parse(localStorage.getItem("key")) 
+    let sprints = retrieveLSDataSprints()
+    let cards = retrieveLSDataCards()
+    let sprintData = sprints[id-1]
+    for (let id_task =0; id_task < sprintData._sprintTasksId.length; id_task++)
+        {
+            console.log("hi")
+            let card = cards[sprintData._sprintTasksId[id_task]]
+            if (card._status == "To-Do")
+            {
+                let cardHolderRef = document.getElementById("toDoInactive")
+                cardHolderRef.innerHTML+= `<div class="card1" id="card${sprintData._sprintTasksId[id_task]}" ">
+                <div class="card-header"><span id="formName${sprintData._sprintTasksId[id_task]}">${card._taskName}</span></div>
+                <div class="card-body" >
+                    <div> Team member: <span id="assignedMember${sprintData._sprintTasksId[id_task]}">${card._assginee}</span> </div>
+                    <div>Priority: <span id="priority${sprintData._sprintTasksId[id_task]}">${card._priority}</span> </div>
+                    <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
+                    <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
+                    <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
+                    <button class="btn" onclick = "deleteModal(${sprintData._sprintTasksId[id_task]})">Delete</button>
+                    <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
+                </div>
+            </div>`
+            }
+            else if (card._status == "In Progress" || card._status == "To Review")
+            {
+                let cardHolderRef = document.getElementById("inProgInactive")
+                cardHolderRef.innerHTML+= `<div class="card1" id="card${sprintData._sprintTasksId[id_task]}" ">
+                <div class="card-header"><span id="formName${sprintData._sprintTasksId[id_task]}">${card._taskName}</span></div>
+                <div class="card-body" >
+                    <div> Team member: <span id="assignedMember${sprintData._sprintTasksId[id_task]}">${card._assginee}</span> </div>
+                    <div>Priority: <span id="priority${sprintData._sprintTasksId[id_task]}">${card._priority}</span> </div>
+                    <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
+                    <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
+                    <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
+                    <button class="btn" onclick = "deleteModal(${sprintData._sprintTasksId[id_task]})">Delete</button>
+                    <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
+                </div>
+            </div>`
+            }
+            else if (card._status == "Done")
+            {
+                let cardHolderRef = document.getElementById("doneInactive")
+                cardHolderRef.innerHTML+= `<div class="card1" id="card${sprintData._sprintTasksId[id_task]}" ">
+                <div class="card-header"><span id="formName${sprintData._sprintTasksId[id_task]}">${card._taskName}</span></div>
+                <div class="card-body" >
+                    <div> Team member: <span id="assignedMember${sprintData._sprintTasksId[id_task]}">${card._assginee}</span> </div>
+                    <div>Priority: <span id="priority${sprintData._sprintTasksId[id_task]}">${card._priority}</span> </div>
+                    <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
+                    <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
+                    <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
+                    <button class="btn" onclick = "deleteModal(${sprintData._sprintTasksId[id_task]})">Delete</button>
+                    <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
+                </div>
+            </div>`
+            }
+        }
+}
+

@@ -11,7 +11,7 @@
     <script src="shared.js"></script>
 </head>
 
-<body class="sprint_inactive" onload="showCard()">
+<body class="sprint_inactive" id="sprintInactive" onload="showCardsInactive()">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
         <div class="mdl-layout__drawer">
             <span class="mdl-layout-title">Inactive Sprint</span>
@@ -22,6 +22,103 @@
             </nav>
         </div>
         <main class="mdl-layout__content">
+            <!--This is for editing/viewing-->
+            <dialog class="modal" id="modalEdit">
+                <h3>Task Details</h3>
+                <form>
+                    <label class="inputFields">Name: <input type="text" id="formNameEdit"></label>
+                    <br>
+                    <label class="inputFields">Assigned To: </label>
+                    <select id="assignedMembersEdit" style="width: 100px;">
+                        <option>Justin</option>
+                        <option>CC</option>
+                        <option>Bob</option>
+                    </select>
+                    <br>
+
+                    <label class="inputFields">Priority: </label>
+                    <!-- add colours here -->
+                    <select id="priorityEdit">
+                        <option style='background-color:red;'>High</option>
+                        <option style='background-color:yellow;'>Medium</option>
+                        <option style='background-color:green;'>Low</option>
+                    </select>
+                    <br>
+
+                    <label class="inputFields">Type: </label>
+                    <select id="typeEdit">
+                        <option>Bugs</option>
+                        <option>User story</option>
+                    </select>
+                    <br>
+
+                    <label class="inputFields">Status: </label>
+                    <select id="statusEdit">
+                        <option>To-Do</option>
+                        <option>In Progress</option>
+                        <option>To Review</option>
+                        <option>Done</option>
+                    </select>
+                    <br>
+
+                    <label class="inputFields">Tags: </label>
+                    <select id="tagsEdit">
+                        <option>Front-end</option>
+                        <option>Back-end</option>
+                        <option>UI</option>
+                        <option>Maintenance</option>
+                        <option>QA</option>
+                    </select>
+                    <br>
+
+                    <label class="inputFields">Story Points:<input type="search" list="fibNums" id="storyPointsEdit"></label>
+                    <datalist id="fibNums">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>5</option>
+                        <option>8</option>
+                        <option>13</option>
+                        <option>21</option>
+                        <option>34</option>
+                        <option>55</option>
+                        <option>89</option>
+                        <option>144</option>
+                    </datalist>
+                    <br>
+                    Details:<input type="text" class="textArea" id="detailsEdit">
+
+                </form>
+                <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;" id="applyTask"
+                    >Apply Changes </button>
+                <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;"
+                    id="closeCard">Cancel</button>
+            </dialog>
+            <!--This is for viewing-->
+            <dialog class="modal" id="modalView">
+                <h3>Task Details</h3>
+                <form>
+                    <label class="inputFields">Name: <input type="text" class="inputFields" id="formNameView" disabled></label>
+                    <br>
+                    <label class="inputFields">Assigned To: <input type="text" class="inputFields" id="assignedMembersView" disabled></label>
+                    <br>
+                    <label class="inputFields">Priority: <input type="text" class="inputFields" id="priorityView" disabled></label>
+                    <br>
+                    <label class="inputFields">Type: <input type="text" class="inputFields" id="typeView" disabled> </label>
+                    <br>
+                    <label class="inputFields">Status: <input type="text" class="inputFields" id="statusView" disabled></label>
+                    <br>
+                    <label class="inputFields">Tags: <input type="text" class="inputFields" id="tagsView" disabled></label>
+                    <br>
+                    <label class="inputFields">Story Points:<input type="text" class="inputFields" id="storyPointsView" disabled></label>
+                    <br>
+                    <label class="inputFields">Details: <input type="text" class="inputFields" id="detailsView" disabled></label>
+
+                </form>
+                <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;" id="editTask">Edit </button>
+                <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;"
+                    id="closeCardView">Cancel</button>
+            </dialog>
             <div class="header">
                 <button class="mdl-button mdl-js-button mdl-button--raised" id="startSprint" onclick="startSprint()"
                     style="margin: 10px; color: white; background-color:#6E85B7; font-family:Verdana;">
@@ -30,13 +127,13 @@
 
             </div>
             <div class="row">
-                <div class="column_header" style="background-color:#F9F3DF;">
+                <div class="column_header" id = "toDoInactive"style="background-color:#F9F3DF;">
                   <h4>To-do</h4>
                 </div>
-                <div class="column_header" style="background-color:#FEFBE7;">
+                <div class="column_header" id = "inProgInactive"style="background-color:#FEFBE7;">
                   <h4>In progress</h4>
                 </div>
-                <div class="column_header" style="background-color:#F9F3DF;">
+                <div class="column_header" id="doneInactive" style="background-color:#F9F3DF;">
                   <h4>Done</h4>
                 </div>
             </div>
