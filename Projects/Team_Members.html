@@ -5,13 +5,16 @@
     <!--MDL STUFF-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="styles.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="functions.js"></script>
+    <script src="shared.js"></script>
 </head>
 
-<body>
+<body class="team_members" onload="showCard()">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
         <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">Team Members</span>
+            <span class="mdl-layout-title">Completed Sprint</span>
             <nav class="mdl-navigation">
                 <a class="mdl-navigation__link" href="Product_Backlog.html">Product Backlog</a>
                 <a class="mdl-navigation__link" href="Sprint_Backlog.html">Sprint Backlog</a>
@@ -19,11 +22,46 @@
             </nav>
         </div>
         <main class="mdl-layout__content">
-            <div class="page-content">
+            <h2>Team members</h2>
+            <table>
+                <tr>
+                  <th>
 
-            </div>
+                  </th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Total time contribution</th>
+                  <th>Average time contribution per day</th>
+
+                </tr>
+                <tr>
+                  <td>
+                    <button class= "edit_button" id="edit_member" onclick="editMember()">
+                        edit</button>
+                    <button class= "delete_button" id="delete_member" onclick="deleteMember()">
+                        -</button>
+                  </td>
+                  <td>Jing Wei</td>
+                  <td>jloh0023@student.monash.edu</td>
+                  <td>Front End</td>
+                  <td>10</td>
+                  <td>10</td>
+
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Insert</td>
+                  <td>Insert</td>
+                  <td>Insert</td>
+                  <td>Backend</td>
+                  <td>Backend</td>
+
+                </tr>
+              </table>
         </main>
     </div>
+
 </body>
 
 </html>
