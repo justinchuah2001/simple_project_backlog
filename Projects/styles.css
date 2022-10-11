@@ -264,3 +264,19 @@
   
   .delete_button:hover {background-color: #FFD1D1}
   
+  .add_button {
+    display: inline-block;
+    padding: 5px 5px;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #A1C298;
+    border: none;
+    border-radius: 10%;
+  }
+  
+  .add_button:hover {background-color: #aee97d}
+  
