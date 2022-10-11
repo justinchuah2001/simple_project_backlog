@@ -14,7 +14,7 @@
 <body class="team_members" onload="showCard()">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
         <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">Completed Sprint</span>
+            <span class="mdl-layout-title">Team Members</span>
             <nav class="mdl-navigation">
                 <a class="mdl-navigation__link" href="Product_Backlog.html">Product Backlog</a>
                 <a class="mdl-navigation__link" href="Sprint_Backlog.html">Sprint Backlog</a>
@@ -26,7 +26,7 @@
             <table>
                 <tr>
                   <th>
-
+                  <button class= "add_button" id="add_member" onclick="addMember()">Add Member</button>
                   </th>
                   <th>Name</th>
                   <th>Email</th>
@@ -38,9 +38,9 @@
                 <tr>
                   <td>
                     <button class= "edit_button" id="edit_member" onclick="editMember()">
-                        edit</button>
+                        Edit</button>
                     <button class= "delete_button" id="delete_member" onclick="deleteMember()">
-                        -</button>
+                        Delete</button>
                   </td>
                   <td>Jing Wei</td>
                   <td>jloh0023@student.monash.edu</td>
