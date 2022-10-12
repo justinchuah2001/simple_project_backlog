@@ -750,6 +750,17 @@ function finishSprint() {
 
     sprintStatus.value = "Completed"
 }
+function addTime() {
+    var hour,min,hres,mres
+    hour = Number(document.getElementById('num1').value);
+    min = Number(document.getElementById('num2').value);
+    mres = mres + min
+    if (mres > 59) {
+        hres = hres + Math.floor(mres/60);
+        mres = mres - Math.floor(mres/60) * 60;
+        }
+    hres = hres + hour;
+  }    
 
 function showCardsInactive(){
     let id = JSON.parse(localStorage.getItem("key")) 
@@ -771,12 +782,19 @@ function showCardsInactive(){
                     <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
                     <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
                     <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
-                </div>
+                    
+                    <label class = "hours"><input type="number" id = "hour" min="0" style="width: 50px"placeholder="0">hour(s)</label>
+                    <label class = "mins"><input type="number" id = "min" min="0" style="width: 50px"placeholder="0">min(s)</label>
+                    <button class="btn btn-outline" onclick = "addTime()">add time log</button>
+                    
+                    </div>
                 <div class="card-footer">
                     <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
                     <button class="btn" onclick = "deleteModal(${sprintData._sprintTasksId[id_task]})">Delete</button>
                     <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
                 </div>
+                    
+                    
             </div>`
             }
             else if (card._status == "In Progress" || card._status == "To Review")
