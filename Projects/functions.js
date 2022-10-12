@@ -99,7 +99,7 @@ function showCard() {
         {
             continue
         }
-        if (card._priority === "High") {
+        if (card._priority === "Low") {
             cardHolderRef.innerHTML += `<div class="card1" id="card${id_num}" ">
             <div class="card-header"><span id="formName${id_num}">${card._taskName}</span></div>
             <div class="card-body" >
@@ -135,7 +135,7 @@ function showCard() {
             </div>
         </div>`
         }
-        if (card._priority === "Low") {
+        if (card._priority === "High") {
             cardHolderRef.innerHTML += `<div class="card3" id="card${id_num}" >
             <div class="card-header"><span id="formName${id_num}">${card._taskName}</span></div>
         
