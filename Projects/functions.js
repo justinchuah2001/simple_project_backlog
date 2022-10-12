@@ -527,6 +527,28 @@ function sprintCreate()
     let sprints = retrieveLSDataSprints()
     // Initizalizing Sprints
     let sprint = new Sprints();
+    // Getting current date to validate date
+    let current = new Date()
+    let currentYear = current.toLocaleString("default", {year: "numeric"})
+    let currentMonth = current.toLocaleString("default",{month :"2-digit"})
+    let currentDay = current.toLocaleString("default",{day: "2-digit"})
+    let formattedDay = currentYear + "-" + currentMonth + '-' + currentDay
+    
+    if (document.getElementById("startDate").value < formattedDay) //Check if start date >= current date
+    {
+        alert("Start date has to be greater or equal to current date!")
+        closeModalSprint()
+        window.location.reload()
+        return
+    }
+    
+    if (document.getElementById("endDate").value < document.getElementById("startDate").value) //Check if end date >= start date
+    {
+        alert("End date has to be greater or equal to start date!")
+        closeModalSprint()
+        window.location.reload()
+        return
+    }
     // Retrieving input field values
     sprint._sprintNumber = document.getElementById("sprintNumber").value
     sprint._sprintStatus = document.getElementById("sprintStatus").value
