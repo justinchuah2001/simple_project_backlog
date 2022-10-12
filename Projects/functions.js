@@ -604,7 +604,7 @@ function showSprint() {
             <div class="card-footer">
                 <button class="btn btn-outline" onclick = "showSprintDetails(${id_num})">Edit</button>
                 <button class="btn" onclick = "viewSprint(${id_num})">View</button>
-                <button class="btn">Finish</button>
+                <button class="btn" onclick = "finishSprint()">Finish</button>
             </div>
         </div>`
         }else if (sprint._sprintStatus == "Completed")
@@ -743,6 +743,12 @@ function viewSprint(id){
         localStorage.setItem("key", JSON.stringify(id))
         window.location.href= "Sprint_Inactive.html"
     }
+}
+
+function finishSprint() {
+    let sprintStatus = document.getElementById("sprintStatusEdit")
+
+    sprintStatus.value = "Completed"
 }
 
 function showCardsInactive(){
