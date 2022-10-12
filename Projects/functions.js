@@ -70,6 +70,21 @@ function updateLSDataSprints(data) {
     localStorage.setItem("sprints", JSON.stringify(data))
 }
 
+function retrieveLSTeamMembers() {
+    if (localStorage.getItem("cards") != null) {
+        return JSON.parse(localStorage.getItem("cards"))
+    }
+    else {
+        intialization = []
+        localStorage.setItem("cards", JSON.stringify(intialization))
+        return JSON.parse(localStorage.getItem("cards"))
+    }
+}
+
+function updateLSTeamMembers(data) {
+    localStorage.setItem("cards", JSON.stringify(data))
+}
+
 function checkValidity(card) {
     if (card.taskName == "" || card.storyPoints == "" || card.details == "") {
         alert("One or more fields are empty, please do not leave fields empty!")
@@ -81,6 +96,15 @@ function checkValidity(card) {
 }
 function checkValidity_Sprint(sprint) {
     if (sprint.sprintNumber == "" || sprint.sprintStatus == "" || sprint.startDate == "" || sprint.endDate == "") {
+        alert("One or more fields are empty, please do not leave fields empty!")
+        return false
+    }
+    else {
+        return true
+    }
+}
+function checkValidity_Members(member) {
+    if (member.memberName == "" || member.memberEmail == "" || member.memberRole == "" || member.memberTotalTimeContribution == "" || member.memberAvgTimeContributionPerDay == "") {
         alert("One or more fields are empty, please do not leave fields empty!")
         return false
     }
@@ -819,4 +843,64 @@ function showCardsInactive(){
             }
         }
 }
+
+
+function addMember() {
+    let table = document.getElementById("myTable"),
+        row = table.insertRow(-1),
+        cellButtons = row.insertCell(0),
+        cellName = row.insertCell(1),
+        cellEmail = row.insertCell(2),
+        cellRole = row.insertCell(3),
+        cellTTC = row.insertCell(4),
+        cellATCPD = row.insertCell(5);
+
+    // Buttons To Edit or Delete Members
+    cellButtons.innerHTML = `<td>
+                              <button class= "edit_button" id="edit_member" onclick="editMember()">Edit</button>
+                              <button class= "delete_button" id="delete_member" onclick="deleteMember()">Delete</button>
+                            </td>`
+
+  }
+
+  function saveMembers() {
+    const modal = document.getElementById("membersCreate")
+    let cards = retrieveLSDataCards();
+    let members = retrieveLSTeamMembers();
+    // Initizalizing Members
+    let member = new Members();
+    // Retrieving input field values
+    member.memberName = document.getElementById("memberName").value
+    member.memberEmail = document.getElementById("memberEmail").value
+    member.memberRole = document.getElementById("memberRole").value
+    member.memberTotalTimeContribution = document.getElementById("memberTotalTime").value
+    member.memberAvgTimeContributionPerDay = document.getElementById("memberAvgTime").value
+
+    //Ensuring no empty fields
+    if (checkValidity_Members(member) == true) {
+        members.push(member)
+        updateLSTeamMembers(members)
+        showCard(member)
+        modal.close();
+        setTimeout(clearFields, 300)
+    }
+  }
+
+  function edit_member()  {}
+
+  function delete_member(id)  {
+    if (confirm("Are you sure you want to delete this member?") == true) {
+      let oldData = retrieveLSDataCards()
+      if (id - 1 == 0) {
+        oldData.splice(0, 1)
+      } 
+      else {
+        oldData.splice(id - 1, 1)
+      }
+
+      let newData = JSON.stringify(oldData)
+      localStorage.setItem("cards", newData)
+      showCard() //Reupdate page with new ID
+    }
+  }
 
