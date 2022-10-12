@@ -10,20 +10,66 @@
     <script src="functions.js"></script>
     <script src="shared.js"></script>
     
-  
+    <!-- Move this script section to functions.js ? -->
     <script>
       function addMember() {
-        var table = document.getElementById("myTable");
-        var row = table.insertRow(-1);
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        var cell4 = row.insertCell(3);
-        var cell5 = row.insertCell(4);
-        var cell6 = row.insertCell(5);
-       
+        let table = document.getElementById("myTable"),
+            row = table.insertRow(-1),
+            cellButtons = row.insertCell(0),
+            cellName = row.insertCell(1),
+            cellEmail = row.insertCell(2),
+            cellRole = row.insertCell(3),
+            cellTTC = row.insertCell(4),
+            cellATCPD = row.insertCell(5);
+
+        // Buttons To Edit or Delete Members
+        cellButtons.innerHTML = `<td>
+                                  <button class= "edit_button" id="edit_member" onclick="editMember()">Edit</button>
+                                  <button class= "delete_button" id="delete_member" onclick="deleteMember()">Delete</button>
+                                </td>`
+
       }
-      </script>
+
+      function saveMembers() {
+        const modal = document.getElementById("membersCreate")
+        let cards = retrieveLSDataCards();
+        // Initizalizing Members(card)
+        let card = new Members();
+        // Retrieving input field values
+        card.memberName = document.getElementById("memberName").value
+        card.memberEmail = document.getElementById("memberEmail").value
+        card.memberRole = document.getElementById("memberRole").value
+        card.memberTotalTimeContribution = document.getElementById("memberTotalTime").value
+        card.memberAvgTimeContributionPerDay = document.getElementById("memberAvgTime").value
+
+        //Ensuring no empty fields
+        if (checkValidity(card) == true) {
+            cards.push(card)
+            updateLSDataCards(cards)
+            showCard(card)
+            modal.close();
+            setTimeout(clearFields, 300)
+        }
+      }
+
+      function edit_member()  {}
+
+      function delete_member(id)  {
+        if (confirm("Are you sure you want to delete this member?") == true) {
+          let oldData = retrieveLSDataCards()
+          if (id - 1 == 0) {
+            oldData.splice(0, 1)
+          } 
+          else {
+            oldData.splice(id - 1, 1)
+          }
+
+          let newData = JSON.stringify(oldData)
+          localStorage.setItem("cards", newData)
+          showCard() //Reupdate page with new ID
+        }
+      }
+    </script>
       
 
 <body class="team_members" onload="showCard()">
@@ -74,6 +120,10 @@
 
                 </tr>
               </table>
+              <!-- Overview -->
+              <span class="padding">
+              <div id="members">
+              </span>
         </main>
     </div>
 
