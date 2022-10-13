@@ -416,6 +416,7 @@ function sort(){
     }
 }
 
+var desc = false;
 function sortObjects(c){
     var x;
     x = retrieveLSDataCards()
@@ -424,16 +425,22 @@ function sortObjects(c){
     console.log(x.length);
     let newlst = []
     console.log(newlst.length)
-    x.sort(function(a, b){
-        if(a._taskName.toLowerCase() < b._taskName.toLowerCase()) { return -1; }
-        if(a._taskName.toLowerCase() > b._taskName.toLowerCase()) { return 1; }
-        return 0;
-    })      
-    if (c == "desc"){
+    // x.sort(function(a, b){
+    //     if(a < b) { return -1; }
+    //     if(a > b) { return 1; }
+    //     return 0;
+    // })      
+    if (c == "asc" && desc == true){
+        x.reverse()
+        desc = false;
+    }
+    if (c == "desc" && desc == false){
         x.reverse();
         console.log(c)
+        desc = true;
     }    
     console.log(x)
+    console.log(desc)
     let sortedData = JSON.stringify(x)
     localStorage.setItem("cards", sortedData)
     showCard()
