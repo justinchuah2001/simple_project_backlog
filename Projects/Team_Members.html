@@ -13,6 +13,27 @@
   
     <script>
       function addMember() {
+        //References
+        const modal = document.getElementById("tm-modalCreate")
+        const cancelModal = document.getElementById("cancelTask")
+        modal.showModal(); // Makes the prompt appear
+        //Closes the modal window once anything outside the window is clicked
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.close();
+            }
+        }
+        cancelModal.addEventListener("click", () => {
+            modal.close();
+            clearFields()
+        })
+      }
+
+      function saveMember(){
+        var n,e,r
+        n = document.getElementById("MemberName").value
+        e = document.getElementById("MemberEmail").value
+        r = document.getElementById("MemberRole").value
         var table = document.getElementById("myTable");
         var row = table.insertRow(-1);
         var cell1 = row.insertCell(0);
@@ -21,7 +42,10 @@
         var cell4 = row.insertCell(3);
         var cell5 = row.insertCell(4);
         var cell6 = row.insertCell(5);
-       
+        cell1.innerHTML = '<button class= "edit_button" id="edit_member" onclick="editMember()">Edit</button>    <button class= "delete_button" id="delete_member" onclick="deleteMember()">Delete</button>'
+        cell2.innerHTML = n;
+        cell3.innerHTML = e;
+        cell4.innerHTML = r;
       }
       </script>
       
@@ -41,7 +65,29 @@
             <table id="myTable">
                 <tr>
                   <th>
-                  <button class= "add_button" id="add_member" onclick="addMember()">Add Member</button>
+                  <button class= "add_button" id="add_member" onclick="addMember()">
+                    Add Member
+                  </button>
+                  <dialog class="tm-modal" id="tm-modalCreate">
+                    <h3>Task Details</h3>
+                    <form>
+                      <label class="inputFields">Name: <input type="text" id="MemberName"
+                              placeholder="Your Name"></label>
+                      <br>
+                      <br>
+                      <label class="inputFields">Email: <input type="text" id="MemberEmail"
+                              placeholder="abcd0000@student.monash.edu"></label>
+                      <br>
+                      <br>
+                      <label class="inputFields">Role: <input type="text" id="MemberRole"
+                              placeholder="Front-end"></label>
+                    </form>
+                    <br>
+                    <br>
+                    <button class= "save_details" id="save_member" onclick="saveMember()">
+                      Save
+                    </button>
+                  </dialog>
                   </th>
                   <th>Name</th>
                   <th>Email</th>
@@ -64,7 +110,7 @@
                   <td>10</td>
 
                 </tr>
-                <tr>
+                <!-- <tr>
                   <td></td>
                   <td>Insert</td>
                   <td>Insert</td>
@@ -72,7 +118,7 @@
                   <td>Backend</td>
                   <td>Backend</td>
 
-                </tr>
+                </tr> -->
               </table>
         </main>
     </div>
