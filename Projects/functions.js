@@ -864,32 +864,44 @@ function addMember() {
 }
 
 function showNewMember() {
-    // Reference to card holders
-    let cardHolderRef = document.getElementById("members")
-    cardHolderRef.innerHTML = '' //temporary measure to be revisted
     for (let id_num = 1; id_num < retrieveLSTeamMembers().length + 1; id_num += 1) {
-        let card = retrieveLSTeamMembers()[id_num - 1]
-        
-        // Adding new row for table (for each member)
-        var table = document.getElementById("myTable"),
-        row = table.insertRow(-1),
-        cellButtons = row.insertCell(0),
-        cellName = row.insertCell(1),
-        cellEmail = row.insertCell(2),
-        cellRole = row.insertCell(3),
-        cellTTC = row.insertCell(4),
-        cellATCPD = row.insertCell(5);
+        let members = retrieveLSTeamMembers()[id_num - 1]
+        if (members._inMemberList == true)
+        {
+            // Adding new row for table (for each member)]
+            var table = document.getElementById("myTable"),
+            row = table.insertRow(-1),
+            cellButtons = row.insertCell(0),
+            cellName = row.insertCell(1),
+            cellEmail = row.insertCell(2),
+            cellRole = row.insertCell(3),
+            cellTTC = row.insertCell(4),
+            cellATCPD = row.insertCell(5);
 
-        // Buttons To Edit or Delete Members
-        cellButtons.innerHTML = `<td>
-                                    <button class= "edit_button" id="edit_member" onclick="editMember()">Edit</button>
-                                    <button class= "delete_button" id="delete_member" onclick="deleteMember()">Delete</button>
-                                </td>`
+            // Buttons To Edit or Delete Members
+            cellButtons.innerHTML   =   `<td>
+                                            <button class= "edit_button" id="edit_member" onclick="editMember()">Edit</button>
+                                            <button class= "delete_button" id="delete_member" onclick="deleteMember()">Delete</button>
+                                        </td>`
 
-        // Add Details to table
-        
-
-  }
+            // Add Details to table
+            cellName.innerHTML      =   `<td>
+                                            <span id="memberName${id_num}">${members._memberName}</span>
+                                        </td>`
+            cellEmail.innerHTML     =   `<td>
+                                            <span id="memberEmail${id_num}">${members._memberEmail}</span>
+                                        </td>`
+            cellRole.innerHTML      =   `<td>
+                                            <span id="memberRole${id_num}">${members._memberRole}</span>
+                                        </td>`
+            cellTTC.innerHTML       =   `<td>
+                                            <span id="memberTotalTime${id_num}">${members._memberTotalTimeContribution}</span>
+                                        </td>`
+            cellATCPD.innerHTML     =   `<td>
+                                            <span id="memberAvgTime${id_num}">${members._memberAverageTimeContributionPerDay}</span>
+                                        </td>`
+        }
+    }
 }
 
 // Function to clear fields for members
@@ -931,11 +943,11 @@ function clearFieldsMember() {
     }
   }
 
-  function edit_member()  {}
+  function editMember()  {}
 
-  function delete_member(id)  {
+  function deleteMember(id)  {
     if (confirm("Are you sure you want to delete this member?") == true) {
-      let oldData = retrieveLSDataCards()
+      let oldData = retrieveLSTeamMembers()
       if (id - 1 == 0) {
         oldData.splice(0, 1)
       } 
@@ -944,8 +956,9 @@ function clearFieldsMember() {
       }
 
       let newData = JSON.stringify(oldData)
-      localStorage.setItem("cards", newData)
-      showCard() //Reupdate page with new ID
+      localStorage.setItem("members", newData)
+      showNewMember() //Reupdate page with new ID
+      window.location.reload()
     }
   }
 
