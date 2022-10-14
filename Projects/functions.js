@@ -900,7 +900,7 @@ function showNewMember() {
                                         <span id="memberTotalTime${id_num}">${members._memberTotalTimeContribution}</span>
                                     </td>`
         cellATCPD.innerHTML     =   `<td>
-                                        <span id="memberAvgTime${id_num}">${members._memberAverageTimeContributionPerDay}</span>
+                                        <span id="memberAvgTime${id_num}">${members._memberAvgTimeContributionPerDay}</span>
                                     </td>`
     }
 }
