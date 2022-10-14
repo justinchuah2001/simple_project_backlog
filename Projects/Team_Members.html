@@ -26,6 +26,34 @@
                 <tr>
                   <th>
                   <button class= "add_button" id="add_member" onclick="addMember()">Add Member</button>
+                  <!--This is the creation modal-->
+                  <dialog class="modal" id="memberCreate">
+                  <h3>Member Details</h3>
+                  <form>
+                      <label class="inputFields">Name: <input type="text" id="memberName"
+                              placeholder="Member Name"></label>
+                      <br>
+                      <label class="inputFields">Email: <input type="text" id="memberEmail"
+                              placeholder="Member Email"></label>
+                      <br>
+                      <!-- Temporary input as text -->
+                      <label class="inputFields">Role: <input type="text" id="memberRole"
+                              placeholder="Member Role"></label>
+                      <br>
+                      <!-- Temporary input as text -->
+                      <label class="inputFields">Total Time Contribution: <input type="text" id="memberTotalTime"
+                              placeholder="Member Total Time contribution"></label>
+                      <br>
+                      <!-- Temporary input as text -->
+                      <label class="inputFields">Average Time Contribution Per Day: <input type="text" id="memberAvgTime"
+                              placeholder="Member Average Time contribution"></label>
+                      <br>
+                  </form>
+                  <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;" id="saveMember"
+                      onclick="saveMember()">Add</button>
+                  <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;"
+                      id="cancelMember">Cancel</button>
+                  </dialog>
                   </th>
                   <th>Name</th>
                   <th>Email</th>

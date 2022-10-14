@@ -71,18 +71,18 @@ function updateLSDataSprints(data) {
 }
 
 function retrieveLSTeamMembers() {
-    if (localStorage.getItem("cards") != null) {
-        return JSON.parse(localStorage.getItem("cards"))
+    if (localStorage.getItem("members") != null) {
+        return JSON.parse(localStorage.getItem("members"))
     }
     else {
         intialization = []
-        localStorage.setItem("cards", JSON.stringify(intialization))
-        return JSON.parse(localStorage.getItem("cards"))
+        localStorage.setItem("members", JSON.stringify(intialization))
+        return JSON.parse(localStorage.getItem("members"))
     }
 }
 
 function updateLSTeamMembers(data) {
-    localStorage.setItem("cards", JSON.stringify(data))
+    localStorage.setItem("members", JSON.stringify(data))
 }
 
 function checkValidity(card) {
@@ -846,7 +846,32 @@ function showCardsInactive(){
 
 
 function addMember() {
-    let table = document.getElementById("myTable"),
+    const modal = document.getElementById("memberCreate")
+    const cancelModal = document.getElementById("cancelMember")
+
+    modal.showModal(); // Makes the prompt appear
+    //Closes the modal window once anything outside the window is clicked
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.close();
+        }
+
+        cancelModal.addEventListener("click", () => {
+            modal.close();
+            clearFieldsMember()
+        })
+    }
+}
+
+function showNewMember() {
+    // Reference to card holders
+    let cardHolderRef = document.getElementById("members")
+    cardHolderRef.innerHTML = '' //temporary measure to be revisted
+    for (let id_num = 1; id_num < retrieveLSTeamMembers().length + 1; id_num += 1) {
+        let card = retrieveLSTeamMembers()[id_num - 1]
+        
+        // Adding new row for table (for each member)
+        var table = document.getElementById("myTable"),
         row = table.insertRow(-1),
         cellButtons = row.insertCell(0),
         cellName = row.insertCell(1),
@@ -855,17 +880,37 @@ function addMember() {
         cellTTC = row.insertCell(4),
         cellATCPD = row.insertCell(5);
 
-    // Buttons To Edit or Delete Members
-    cellButtons.innerHTML = `<td>
-                              <button class= "edit_button" id="edit_member" onclick="editMember()">Edit</button>
-                              <button class= "delete_button" id="delete_member" onclick="deleteMember()">Delete</button>
-                            </td>`
+        // Buttons To Edit or Delete Members
+        cellButtons.innerHTML = `<td>
+                                    <button class= "edit_button" id="edit_member" onclick="editMember()">Edit</button>
+                                    <button class= "delete_button" id="delete_member" onclick="deleteMember()">Delete</button>
+                                </td>`
+
+        // Add Details to table
+        
 
   }
+}
 
-  function saveMembers() {
+// Function to clear fields for members
+function clearFieldsMember() {
+    //Getting references
+    let memberName = document.getElementById("memberName")
+    let memberEmail = document.getElementById("memberEmail")
+    let memberRole = document.getElementById("memberRole")
+    let memberTotalTime = document.getElementById("memberTotalTime")
+    let memberAvgTime = document.getElementById("memberAvgTime")
+
+    //Resetting values
+    memberName.value = ""
+    memberEmail.value = ""
+    memberRole.value = ""
+    memberTotalTime.value = ""
+    memberAvgTime.value = ""
+}
+
+  function saveMember() {
     const modal = document.getElementById("membersCreate")
-    let cards = retrieveLSDataCards();
     let members = retrieveLSTeamMembers();
     // Initizalizing Members
     let member = new Members();
@@ -880,7 +925,7 @@ function addMember() {
     if (checkValidity_Members(member) == true) {
         members.push(member)
         updateLSTeamMembers(members)
-        showCard(member)
+        showNewMember(member)
         modal.close();
         setTimeout(clearFields, 300)
     }
