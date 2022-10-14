@@ -868,39 +868,40 @@ function showNewMember() {
         let members = retrieveLSTeamMembers()[id_num - 1]
         if (members._inMemberList == true)
         {
-            // Adding new row for table (for each member)]
-            var table = document.getElementById("myTable"),
-            row = table.insertRow(-1),
-            cellButtons = row.insertCell(0),
-            cellName = row.insertCell(1),
-            cellEmail = row.insertCell(2),
-            cellRole = row.insertCell(3),
-            cellTTC = row.insertCell(4),
-            cellATCPD = row.insertCell(5);
-
-            // Buttons To Edit or Delete Members
-            cellButtons.innerHTML   =   `<td>
-                                            <button class= "edit_button" id="edit_member" onclick="editMember()">Edit</button>
-                                            <button class= "delete_button" id="delete_member" onclick="deleteMember()">Delete</button>
-                                        </td>`
-
-            // Add Details to table
-            cellName.innerHTML      =   `<td>
-                                            <span id="memberName${id_num}">${members._memberName}</span>
-                                        </td>`
-            cellEmail.innerHTML     =   `<td>
-                                            <span id="memberEmail${id_num}">${members._memberEmail}</span>
-                                        </td>`
-            cellRole.innerHTML      =   `<td>
-                                            <span id="memberRole${id_num}">${members._memberRole}</span>
-                                        </td>`
-            cellTTC.innerHTML       =   `<td>
-                                            <span id="memberTotalTime${id_num}">${members._memberTotalTimeContribution}</span>
-                                        </td>`
-            cellATCPD.innerHTML     =   `<td>
-                                            <span id="memberAvgTime${id_num}">${members._memberAverageTimeContributionPerDay}</span>
-                                        </td>`
+            continue
         }
+        // Adding new row for table (for each member)]
+        var table = document.getElementById("myTable"),
+        row = table.insertRow(-1),
+        cellButtons = row.insertCell(0),
+        cellName = row.insertCell(1),
+        cellEmail = row.insertCell(2),
+        cellRole = row.insertCell(3),
+        cellTTC = row.insertCell(4),
+        cellATCPD = row.insertCell(5);
+
+        // Buttons To Edit or Delete Members
+        cellButtons.innerHTML   =   `<td>
+                                        <button class= "edit_button" id="edit_member" onclick="editMember()">Edit</button>
+                                        <button class= "delete_button" id="delete_member" onclick="deleteMember()">Delete</button>
+                                    </td>`
+
+        // Add Details to table
+        cellName.innerHTML      =   `<td>
+                                        <span id="memberName${id_num}">${members._memberName}</span>
+                                    </td>`
+        cellEmail.innerHTML     =   `<td>
+                                        <span id="memberEmail${id_num}">${members._memberEmail}</span>
+                                    </td>`
+        cellRole.innerHTML      =   `<td>
+                                        <span id="memberRole${id_num}">${members._memberRole}</span>
+                                    </td>`
+        cellTTC.innerHTML       =   `<td>
+                                        <span id="memberTotalTime${id_num}">${members._memberTotalTimeContribution}</span>
+                                    </td>`
+        cellATCPD.innerHTML     =   `<td>
+                                        <span id="memberAvgTime${id_num}">${members._memberAverageTimeContributionPerDay}</span>
+                                    </td>`
     }
 }
 
