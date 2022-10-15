@@ -692,8 +692,8 @@ function showSprintDetails(id) {
     applyModal.addEventListener("click", () => {
         data._sprintNumber = document.getElementById("sprintNumberEdit").value
         data._sprintStatus = document.getElementById("sprintStatusEdit").value
-        data._startDate = document.getElementById("startDateEdit").value
-        data._endDate = document.getElementById("endDateEdit").value
+        data._sprintEnd = document.getElementById("startDateEdit").value
+        data._sprintStart = document.getElementById("endDateEdit").value
 
         localStorage.setItem("sprints", JSON.stringify(sprints))
         sprintEdit.close()
@@ -720,7 +720,7 @@ function deleteSprint(id) {
 
         for (let i=0; i<oldData[id-1]._sprintTasksId.length; i++)
         {
-            oldData_cards[id-1]._inSprint = false
+            oldData_cards[oldData[id-1]._sprintTasksId[i]]._inSprint = false
         }
         if (id - 1 == 0) {
             oldData.splice(0, 1)
