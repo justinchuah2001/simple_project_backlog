@@ -223,7 +223,7 @@ function editCardDetails(id) {
         modalEdit.close();
     })
 }
-function viewCardDetails(id){
+function viewCardDetails(id, isDone = false){
     //References
     const modalView = document.getElementById("modalView")
     const closeModalView = document.getElementById("closeCardView")
@@ -250,6 +250,11 @@ function viewCardDetails(id){
         modalView.close()
         editCardDetails(id)
     } ,{once:true})
+    
+    if (isDone == true)
+    {
+        editModalView.disabled = true
+    }
     
     closeModalView.addEventListener("click", () => {
         modalView.close();
@@ -716,8 +721,8 @@ function showSprintDetails(id) {
     applyModal.addEventListener("click", () => {
         data._sprintNumber = document.getElementById("sprintNumberEdit").value
         data._sprintStatus = document.getElementById("sprintStatusEdit").value
-        data._startDate = document.getElementById("startDateEdit").value
-        data._endDate = document.getElementById("endDateEdit").value
+        data._sprintEnd = document.getElementById("startDateEdit").value
+        data._sprintStart = document.getElementById("endDateEdit").value
 
         localStorage.setItem("sprints", JSON.stringify(sprints))
         sprintEdit.close()
@@ -744,7 +749,7 @@ function deleteSprint(id) {
 
         for (let i=0; i<oldData[id-1]._sprintTasksId.length; i++)
         {
-            oldData_cards[id-1]._inSprint = false
+            oldData_cards[oldData[id-1]._sprintTasksId[i]]._inSprint = false
         }
         if (id - 1 == 0) {
             oldData.splice(0, 1)
@@ -763,15 +768,8 @@ function deleteSprint(id) {
 }
 
 function viewSprint(id){
-    let sprints = retrieveLSDataSprints()
-    let cards = retrieveLSDataCards()
-    let sprintData = sprints[id-1]
-    let sprintStatus = sprints[id-1]._sprintStatus
-    if (sprintStatus == "Inactive")
-    {
-        localStorage.setItem("key", JSON.stringify(id))
-        window.location.href= "Sprint_Inactive.html"
-    }
+    localStorage.setItem("key", JSON.stringify(id))
+    window.location.href= "Sprint_Status.html"
 }
 
 function finishSprint() {
@@ -790,79 +788,235 @@ function addTime() {
         }
     hres = hres + hour;
   }    
-
-function showCardsInactive(){
+function backButton()
+{
+    let check = confirm("Are you sure you want to return? ")
+    
+    if (check)
+    {
+        window.location.href = "Sprint_Backlog.html"
+    }
+    
+}
+function showCardStatus(){
     let id = JSON.parse(localStorage.getItem("key")) 
     let sprints = retrieveLSDataSprints()
     let cards = retrieveLSDataCards()
     let sprintData = sprints[id-1]
+
+    if (sprintData._sprintStatus =="Inactive")
+    {
+        document.getElementById("startSprint").disabled == false
+        document.getElementById("finishSprint").disabled == true
+        document.getElementById("viewChart").disabled == true
+    }
+    else if (sprintData._sprintStatus == "Active")
+    {
+        document.getElementById("startSprint").disabled == true
+        document.getElementById("finishSprint").disabled == false
+        document.getElementById("viewChart").disabled == true
+    }
+    else if (sprintData._sprintStatus == "Completed")
+    {
+        document.getElementById("startSprint").disabled == true
+        document.getElementById("finishSprint").disabled == true
+        document.getElementById("viewChart").disabled == false
+    }
+
     for (let id_task =0; id_task < sprintData._sprintTasksId.length; id_task++)
         {
-            console.log("hi")
             let card = cards[sprintData._sprintTasksId[id_task]]
-            if (card._status == "To-Do")
+            if (sprintData._sprintStatus =="Inactive")
             {
-                let cardHolderRef = document.getElementById("toDoInactive")
-                cardHolderRef.innerHTML+= `<div class="card1" id="card${sprintData._sprintTasksId[id_task]}" ">
-                <div class="card-header"><span id="formName${sprintData._sprintTasksId[id_task]}">${card._taskName}</span></div>
-                <div class="card-body" >
-                    <div> Team member: <span id="assignedMember${sprintData._sprintTasksId[id_task]}">${card._assginee}</span> </div>
-                    <div>Priority: <span id="priority${sprintData._sprintTasksId[id_task]}">${card._priority}</span> </div>
-                    <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
-                    <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
-                    <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
-                    
-                    <label class = "hours"><input type="number" id = "hour" min="0" style="width: 50px"placeholder="0">hour(s)</label>
-                    <label class = "mins"><input type="number" id = "min" min="0" style="width: 50px"placeholder="0">min(s)</label>
-                    <button class="btn btn-outline" onclick = "addTime()">add time log</button>
-                    
+                if (card._status == "To-Do")
+                {
+                    let cardHolderRef = document.getElementById("toDoInactive")
+                    cardHolderRef.innerHTML+= `<div class="card1" id="card${sprintData._sprintTasksId[id_task]}" ">
+                    <div class="card-header"><span id="formName${sprintData._sprintTasksId[id_task]}">${card._taskName}</span></div>
+                    <div class="card-body" >
+                        <div> Team member: <span id="assignedMember${sprintData._sprintTasksId[id_task]}">${card._assginee}</span> </div>
+                        <div>Priority: <span id="priority${sprintData._sprintTasksId[id_task]}">${card._priority}</span> </div>
+                        <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
+                        <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
+                        
+                        <label class = "hours"><input type="number" id = "hour" min="0" style="width: 50px"placeholder="0">hour(s)</label>
+                        <label class = "mins"><input type="number" id = "min" min="0" style="width: 50px"placeholder="0">min(s)</label>
+                        <button class="btn btn-outline" onclick = "addTime()">add time log</button>
+                        
+                        </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
+                        <button class="btn" onclick = "deleteModal(${sprintData._sprintTasksId[id_task]})">Delete</button>
+                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
                     </div>
-                <div class="card-footer">
-                    <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
-                    <button class="btn" onclick = "deleteModal(${sprintData._sprintTasksId[id_task]})">Delete</button>
-                    <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
-                </div>
-                    
-                    
-            </div>`
+                        
+                        
+                </div>`
+                }
+                else if (card._status == "In Progress" || card._status == "To Review")
+                {
+                    let cardHolderRef = document.getElementById("inProgInactive")
+                    cardHolderRef.innerHTML+= `<div class="card1" id="card${sprintData._sprintTasksId[id_task]}" ">
+                    <div class="card-header"><span id="formName${sprintData._sprintTasksId[id_task]}">${card._taskName}</span></div>
+                    <div class="card-body" >
+                        <div> Team member: <span id="assignedMember${sprintData._sprintTasksId[id_task]}">${card._assginee}</span> </div>
+                        <div>Priority: <span id="priority${sprintData._sprintTasksId[id_task]}">${card._priority}</span> </div>
+                        <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
+                        <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
+                        <button class="btn" onclick = "deleteModal(${sprintData._sprintTasksId[id_task]})">Delete</button>
+                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
+                    </div>
+                </div>`
+                }
+                else if (card._status == "Done")
+                {
+                    let cardHolderRef = document.getElementById("doneInactive")
+                    cardHolderRef.innerHTML+= `<div class="card1" id="card${sprintData._sprintTasksId[id_task]}" ">
+                    <div class="card-header"><span id="formName${sprintData._sprintTasksId[id_task]}">${card._taskName}</span></div>
+                    <div class="card-body" >
+                        <div> Team member: <span id="assignedMember${sprintData._sprintTasksId[id_task]}">${card._assginee}</span> </div>
+                        <div>Priority: <span id="priority${sprintData._sprintTasksId[id_task]}">${card._priority}</span> </div>
+                        <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
+                        <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
+                        <button class="btn" onclick = "deleteModal(${sprintData._sprintTasksId[id_task]})">Delete</button>
+                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
+                    </div>
+                </div>`
+                }
             }
-            else if (card._status == "In Progress" || card._status == "To Review")
+            else if (sprintData._sprintStatus == "Active")
             {
-                let cardHolderRef = document.getElementById("inProgInactive")
-                cardHolderRef.innerHTML+= `<div class="card1" id="card${sprintData._sprintTasksId[id_task]}" ">
-                <div class="card-header"><span id="formName${sprintData._sprintTasksId[id_task]}">${card._taskName}</span></div>
-                <div class="card-body" >
-                    <div> Team member: <span id="assignedMember${sprintData._sprintTasksId[id_task]}">${card._assginee}</span> </div>
-                    <div>Priority: <span id="priority${sprintData._sprintTasksId[id_task]}">${card._priority}</span> </div>
-                    <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
-                    <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
-                    <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
-                </div>
-                <div class="card-footer">
-                    <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
-                    <button class="btn" onclick = "deleteModal(${sprintData._sprintTasksId[id_task]})">Delete</button>
-                    <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
-                </div>
-            </div>`
+                if (card._status == "To-Do")
+                {
+                    let cardHolderRef = document.getElementById("toDoInactive")
+                    cardHolderRef.innerHTML+= `<div class="card1" id="card${sprintData._sprintTasksId[id_task]}" ">
+                    <div class="card-header"><span id="formName${sprintData._sprintTasksId[id_task]}">${card._taskName}</span></div>
+                    <div class="card-body" >
+                        <div> Team member: <span id="assignedMember${sprintData._sprintTasksId[id_task]}">${card._assginee}</span> </div>
+                        <div>Priority: <span id="priority${sprintData._sprintTasksId[id_task]}">${card._priority}</span> </div>
+                        <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
+                        <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
+                        
+                        <label class = "hours"><input type="number" id = "hour" min="0" style="width: 50px"placeholder="0">hour(s)</label>
+                        <label class = "mins"><input type="number" id = "min" min="0" style="width: 50px"placeholder="0">min(s)</label>
+                        <button class="btn btn-outline" onclick = "addTime()">add time log</button>
+            
+                        </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
+                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
+                    </div>
+                        
+                        
+                </div>`
+                }
+                else if (card._status == "In Progress" || card._status == "To Review")
+                {
+                    let cardHolderRef = document.getElementById("inProgInactive")
+                    cardHolderRef.innerHTML+= `<div class="card1" id="card${sprintData._sprintTasksId[id_task]}" ">
+                    <div class="card-header"><span id="formName${sprintData._sprintTasksId[id_task]}">${card._taskName}</span></div>
+                    <div class="card-body" >
+                        <div> Team member: <span id="assignedMember${sprintData._sprintTasksId[id_task]}">${card._assginee}</span> </div>
+                        <div>Priority: <span id="priority${sprintData._sprintTasksId[id_task]}">${card._priority}</span> </div>
+                        <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
+                        <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
+                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
+                    </div>
+                </div>`
+                }
+                else if (card._status == "Done")
+                {
+                    let cardHolderRef = document.getElementById("doneInactive")
+                    cardHolderRef.innerHTML+= `<div class="card1" id="card${sprintData._sprintTasksId[id_task]}" ">
+                    <div class="card-header"><span id="formName${sprintData._sprintTasksId[id_task]}">${card._taskName}</span></div>
+                    <div class="card-body" >
+                        <div> Team member: <span id="assignedMember${sprintData._sprintTasksId[id_task]}">${card._assginee}</span> </div>
+                        <div>Priority: <span id="priority${sprintData._sprintTasksId[id_task]}">${card._priority}</span> </div>
+                        <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
+                        <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
+                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
+                    </div>
+                </div>`
+                }
             }
-            else if (card._status == "Done")
+            else if (sprintData._sprintStatus == "Completed")
             {
-                let cardHolderRef = document.getElementById("doneInactive")
-                cardHolderRef.innerHTML+= `<div class="card1" id="card${sprintData._sprintTasksId[id_task]}" ">
-                <div class="card-header"><span id="formName${sprintData._sprintTasksId[id_task]}">${card._taskName}</span></div>
-                <div class="card-body" >
-                    <div> Team member: <span id="assignedMember${sprintData._sprintTasksId[id_task]}">${card._assginee}</span> </div>
-                    <div>Priority: <span id="priority${sprintData._sprintTasksId[id_task]}">${card._priority}</span> </div>
-                    <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
-                    <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
-                    <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
-                </div>
-                <div class="card-footer">
-                    <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
-                    <button class="btn" onclick = "deleteModal(${sprintData._sprintTasksId[id_task]})">Delete</button>
-                    <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
-                </div>
-            </div>`
+                if (card._status == "To-Do")
+                {
+                    let cardHolderRef = document.getElementById("toDoInactive")
+                    cardHolderRef.innerHTML+= `<div class="card1" id="card${sprintData._sprintTasksId[id_task]}" ">
+                    <div class="card-header"><span id="formName${sprintData._sprintTasksId[id_task]}">${card._taskName}</span></div>
+                    <div class="card-body" >
+                        <div> Team member: <span id="assignedMember${sprintData._sprintTasksId[id_task]}">${card._assginee}</span> </div>
+                        <div>Priority: <span id="priority${sprintData._sprintTasksId[id_task]}">${card._priority}</span> </div>
+                        <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
+                        <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
+                        
+                        <label class = "hours"><input type="number" id = "hour" min="0" style="width: 50px"placeholder="0">hour(s)</label>
+                        <label class = "mins"><input type="number" id = "min" min="0" style="width: 50px"placeholder="0">min(s)</label>
+                        <button class="btn btn-outline" onclick = "addTime()">add time log</button>
+            
+                        </div>
+                    <div class="card-footer">
+                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]},isDone = true)">View</button>
+                    </div>
+                        
+                        
+                </div>`
+                }
+                else if (card._status == "In Progress" || card._status == "To Review")
+                {
+                    let cardHolderRef = document.getElementById("inProgInactive")
+                    cardHolderRef.innerHTML+= `<div class="card1" id="card${sprintData._sprintTasksId[id_task]}" ">
+                    <div class="card-header"><span id="formName${sprintData._sprintTasksId[id_task]}">${card._taskName}</span></div>
+                    <div class="card-body" >
+                        <div> Team member: <span id="assignedMember${sprintData._sprintTasksId[id_task]}">${card._assginee}</span> </div>
+                        <div>Priority: <span id="priority${sprintData._sprintTasksId[id_task]}">${card._priority}</span> </div>
+                        <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
+                        <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]},isDone = true)">View</button>
+                    </div>
+                </div>`
+                }
+                else if (card._status == "Done")
+                {
+                    let cardHolderRef = document.getElementById("doneInactive")
+                    cardHolderRef.innerHTML+= `<div class="card1" id="card${sprintData._sprintTasksId[id_task]}" ">
+                    <div class="card-header"><span id="formName${sprintData._sprintTasksId[id_task]}">${card._taskName}</span></div>
+                    <div class="card-body" >
+                        <div> Team member: <span id="assignedMember${sprintData._sprintTasksId[id_task]}">${card._assginee}</span> </div>
+                        <div>Priority: <span id="priority${sprintData._sprintTasksId[id_task]}">${card._priority}</span> </div>
+                        <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
+                        <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
+                        <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]},isDone = true)">View</button>
+                    </div>
+                </div>`
+                }
             }
         }
 }

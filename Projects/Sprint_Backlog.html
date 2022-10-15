@@ -57,23 +57,8 @@
                         id="cancelSprint" onclick="closeModalSprint()">Cancel</button>
                     <br>
                 </dialog>
-                <!--This is the edit modal(Only for sprint details NO TASK)-->
-                <dialog class="modal" id="sprintDetailsEdit">
-                    <h3>Sprint Details</h3>
-                    <form>
-                        <label class="inputFields">Sprint: <input type="text" id="sprintNumberEdit"></label>
-                        <br>
-                        
-                        <label class="inputFields">Status: </label>
-                        <select id="sprintStatusEdit" name="" style="width: 100px;">
-                            <option style='background-color:red;'>Inactive</option>
-                            <option style='background-color:yellow;'>Active</option>
-                            <option style='background-color:green;'>Completed</option>
-                        </select>
-                        <br>
-
                 <!--This is for editing/viewing-->
-                <dialog class="modal" id="sprintEdit">
+                <dialog class="modal" id="sprintDetailsEdit">
                     <h3>Sprint Details</h3>
                     <form>
                         <label class="inputFields">Sprint: <input type="text" id="sprintNumberEdit"></label>
@@ -96,10 +81,10 @@
                         <br>
 
                     </form>
-                    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;" id="applyTask"
+                    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;" id="applySprintDetails"
                         >Apply Changes </button>
                     <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;"
-                        id="closeCard">Cancel</button>
+                        id="closeEditSprint">Cancel</button>
                 </dialog>
 
             </div>
