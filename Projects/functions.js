@@ -223,7 +223,7 @@ function editCardDetails(id) {
         modalEdit.close();
     })
 }
-function viewCardDetails(id, isDone = false){
+function viewCardDetails(id, isDone = false, isSprint = false){
     //References
     const modalView = document.getElementById("modalView")
     const closeModalView = document.getElementById("closeCardView")
@@ -248,7 +248,15 @@ function viewCardDetails(id, isDone = false){
     
     editModalView.addEventListener("click", () => {
         modalView.close()
-        editCardDetails(id)
+        if (isSprint = true)
+        {
+            editCardInSprint(id)
+        }
+        else
+        {
+            editCardDetails(id)
+        }
+        
     } ,{once:true})
     
     if (isDone == true)
@@ -823,6 +831,59 @@ function removeCardSprint(card_id)
         }
     }
 }
+function editCardInSprint(id) {
+    //References
+    const modalEditSprint = document.getElementById("modalEditSprint")
+    const applyModal = document.getElementById("applyTask")
+    const closeModal = document.getElementById("closeCard")
+    let cards = retrieveLSDataCards()
+    let data = cards[id - 1]
+    document.getElementById("formNameEdit").value = data._taskName
+    document.getElementById("assignedMembersEdit").value = data._assginee
+    document.getElementById("priorityEdit").value = data._priority
+    document.getElementById("tagsEdit").value = data._tags
+    document.getElementById("statusEdit").value = data._status
+    document.getElementById("storyPointsEdit").value = data._storyPoints
+    document.getElementById("detailsEdit").value = data._details
+    document.getElementById("typeEdit").value = data._type
+    modalEditSprint.showModal(); // Makes the prompt appear
+
+    applyModal.addEventListener("click", () => {
+        data._taskName = document.getElementById("formNameEdit").value
+        data._assginee = document.getElementById("assignedMembersEdit").value
+        data._priority = document.getElementById("priorityEdit").value
+        data._tags = document.getElementById("tagsEdit").value
+        data._status = document.getElementById("statusEdit").value
+        data._storyPoints = document.getElementById("storyPointsEdit").value
+        data._details = document.getElementById("detailsEdit").value
+        data._type = document.getElementById("typeEdit").value
+        localStorage.setItem("cards", JSON.stringify(cards))
+        
+        let sprint_id = JSON.parse(localStorage.getItem("key")) 
+        let sprints = retrieveLSDataSprints()
+        let sprintData = sprints[sprint_id-1]
+        for (let i =0; i<sprintData._sprintTasksId.length; i++)
+        {
+            if (sprintData._sprintTasksId[i]== id-1)
+            {
+                sprintData._sprintTasks[i] = retrieveLSDataCards()[id-1]
+                localStorage.setItem("sprints", JSON.stringify(sprints))
+                window.location.reload()
+                break
+            }
+        }
+    })
+    //Closes the modal window once anything outside the window is clicked
+    window.onclick = function (event) {
+        if (event.target == modalEditSprint) {
+            modalEditSprint.close();
+        }
+    }
+
+    closeModal.addEventListener("click", () => {
+        modalEditSprint.close();
+    })
+}
 function showCardStatus(){
     let id = JSON.parse(localStorage.getItem("key")) 
     let sprints = retrieveLSDataSprints()
@@ -871,9 +932,9 @@ function showCardStatus(){
                         
                         </div>
                     <div class="card-footer">
-                        <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
+                        <button class="btn btn-outline" onclick = "editCardInSprint(${parseInt(sprintData._sprintTasksId[id_task])+1})">Edit</button>
                         <button class="btn" onclick = "removeCardSprint(${sprintData._sprintTasksId[id_task]})">Remove</button>
-                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
+                        <button class="btn" onclick = "viewCardDetails(${parseInt(sprintData._sprintTasksId[id_task])+1})">View</button>
                     </div>
                         
                         
@@ -892,9 +953,9 @@ function showCardStatus(){
                         <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
+                        <button class="btn btn-outline" onclick = "editCardInSprint(${parseInt(sprintData._sprintTasksId[id_task])+1})">Edit</button>
                         <button class="btn" onclick = "removeCardSprint(${sprintData._sprintTasksId[id_task]})">Remove</button>
-                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
+                        <button class="btn" onclick = "viewCardDetails(${parseInt(sprintData._sprintTasksId[id_task])+1})">View</button>
                     </div>
                 </div>`
                 }
@@ -911,9 +972,9 @@ function showCardStatus(){
                         <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
+                        <button class="btn btn-outline" onclick = "editCardInSprint(${parseInt(sprintData._sprintTasksId[id_task])+1})">Edit</button>
                         <button class="btn" onclick = "removeCardSprint(${sprintData._sprintTasksId[id_task]})">Remove</button>
-                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
+                        <button class="btn" onclick = "viewCardDetails(${parseInt(sprintData._sprintTasksId[id_task])+1})">View</button>
                     </div>
                 </div>`
                 }
@@ -938,8 +999,8 @@ function showCardStatus(){
             
                         </div>
                     <div class="card-footer">
-                        <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
-                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
+                        <button class="btn btn-outline" onclick = "editCardInSprint(${parseInt(sprintData._sprintTasksId[id_task])+1})">Edit</button>
+                        <button class="btn" onclick = "viewCardDetails(${parseInt(sprintData._sprintTasksId[id_task])+1})">View</button>
                     </div>
                         
                         
@@ -958,8 +1019,8 @@ function showCardStatus(){
                         <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
-                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
+                        <button class="btn btn-outline" onclick = "editCardInSprint(${parseInt(sprintData._sprintTasksId[id_task])+1})">Edit</button>
+                        <button class="btn" onclick = "viewCardDetails(${parseInt(sprintData._sprintTasksId[id_task])+1})">View</button>
                     </div>
                 </div>`
                 }
@@ -976,8 +1037,8 @@ function showCardStatus(){
                         <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
-                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
+                        <button class="btn btn-outline" onclick = "editCardInSprint(${parseInt(sprintData._sprintTasksId[id_task])+1})">Edit</button>
+                        <button class="btn" onclick = "viewCardDetails(${parseInt(sprintData._sprintTasksId[id_task])+1})">View</button>
                     </div>
                 </div>`
                 }
@@ -1002,7 +1063,7 @@ function showCardStatus(){
             
                         </div>
                     <div class="card-footer">
-                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]},isDone = true)">View</button>
+                        <button class="btn" onclick = "viewCardDetails(${parseInt(sprintData._sprintTasksId[id_task])+1},isDone = true)">View</button>
                     </div>
                         
                         
@@ -1021,7 +1082,7 @@ function showCardStatus(){
                         <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]},isDone = true)">View</button>
+                        <button class="btn" onclick = "viewCardDetails(${parseInt(sprintData._sprintTasksId[id_task])+1},isDone = true)">View</button>
                     </div>
                 </div>`
                 }
@@ -1038,11 +1099,12 @@ function showCardStatus(){
                         <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]},isDone = true)">View</button>
+                        <button class="btn" onclick = "viewCardDetails(${parseInt(sprintData._sprintTasksId[id_task])+1},isDone = true)">View</button>
                     </div>
                 </div>`
                 }
             }
         }
+    
 }
 
