@@ -120,6 +120,12 @@
                 <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;"
                     id="closeCardView">Cancel</button>
             </dialog>
+            <!--This is for adding tasks-->
+            <dialog class="modal" id="modalAddTask">
+                <h3>Available Tasks</h3>
+                <form>
+                </form>
+            </dialog>
             <div class="header">
                 <button class="mdl-button mdl-js-button mdl-button--raised"  onclick="backButton()"
                     style="margin: 10px; color: white; background-color:#6E85B7; font-family:Verdana;">
@@ -136,6 +142,10 @@
                 <button class="mdl-button mdl-js-button mdl-button--raised" id="viewChart" onclick="viewBurnDownChart()"
                     style="margin: 10px; color: white; background-color:#6E85B7; font-family:Verdana;">
                     Burndown Chart
+                </button>
+                <button class="mdl-button mdl-js-button mdl-button--raised" id="addTask" onclick="addTaskSprint()"
+                    style="margin: 10px; color: white; background-color:#6E85B7; font-family:Verdana;">
+                    Add Task
                 </button>
 
             </div>

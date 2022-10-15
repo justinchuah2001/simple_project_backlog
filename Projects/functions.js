@@ -489,6 +489,84 @@ function createSprint() {
     }
 }
 
+function addTaskSprint()
+{
+    let modal = document.getElementById("modalAddTask")
+    getUnassignedTask()
+    modal.showModal()
+}
+
+function getUnassignedTask()
+{
+    let cards = retrieveLSDataCards()
+    let unassigned = []
+
+    for (let i=0; i<cards.length; i++)
+    {
+        if (cards[i]._inSprint == false)
+        {
+            unassigned.push(i)
+        }
+    }
+
+    if (unassigned.length >0)
+    {
+        temp = `   <label class="inputFields">Tasks:</label> <br>
+    <form action="/action_page.php" id ="availableTasks">`
+        for (let i=0; i<unassigned.length; i++)
+        {
+            temp+=`<input type="checkbox" id="task${unassigned[i]}" name="task" value="${unassigned[i]}">
+            <label for="task${unassigned[i]}"> ${cards[unassigned[i]]._taskName}</label><br>`
+        }
+        temp += `</form`
+        document.getElementById("modalAddTask").innerHTML += temp
+        document.getElementById("modalAddTask").innerHTML +=`<button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;" id="saveSprint"
+        onclick="addUnassignedTask()">Add Tasks </button>
+    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;"
+         onclick="closeModalAddTask()">Cancel</button>`
+    }
+    else
+    {
+        document.getElementById("modalAddTask").innerHTML += `No Available Tasks <br><button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;"
+        onclick="closeModalAddTask()">Close</button> `
+    }
+}
+function addUnassignedTask()
+{
+    let tasks = document.getElementsByName("task")
+    let id = JSON.parse(localStorage.getItem("key")) 
+    let sprints = retrieveLSDataSprints()
+    let cards = retrieveLSDataCards()
+    let sprintData = sprints[id-1]
+    let sprintTasksId = sprintData._sprintTasksId
+
+    for ( let i=0; i<tasks.length;i++)
+    {
+        if (tasks[i].checked)
+        {
+            sprintData._sprintTasksId.push(tasks[i].value)
+        }
+    }
+    let sprintTasks =[]
+    for (let i=0; i<sprintTasksId.length; i++)
+    {
+        sprintTasks.push(cards[sprintTasksId[i]])
+        cards[sprintTasksId[i]]._inSprint = true
+    }
+    sprintData._sprintTasks = sprintTasks
+    localStorage.setItem("sprints", JSON.stringify(sprints))
+    localStorage.setItem("cards",JSON.stringify(cards))
+    document.getElementById("modalAddTask").close()
+    window.location.reload()
+}
+function closeModalAddTask()
+{
+    document.getElementById("modalAddTask").close()
+    document.getElementById("modalAddTask").innerHTML = `<h3>Available Tasks</h3>
+    <form>
+    </form>`
+}
+
 function closeModalSprint(){
     document.getElementById("sprintCreate").close()
     document.getElementById("sprintCreate").innerHTML = `<h3>Sprint Details</h3>
@@ -689,6 +767,7 @@ function showSprintDetails(id) {
     {
         document.getElementById("sprintStatusEdit").disabled =true
         document.getElementById("startDateEdit").disabled = true
+
     }
     else
     {
@@ -866,18 +945,21 @@ function showCardStatus(){
         document.getElementById("startSprint").disabled == false
         document.getElementById("finishSprint").disabled == true
         document.getElementById("viewChart").disabled == true
+        document.getElementById("addTask").disabled = false
     }
     else if (sprintData._sprintStatus == "Active")
     {
         document.getElementById("startSprint").disabled == true
         document.getElementById("finishSprint").disabled == false
         document.getElementById("viewChart").disabled == true
+        document.getElementById("addTask").disabled = true
     }
     else if (sprintData._sprintStatus == "Completed")
     {
         document.getElementById("startSprint").disabled == true
         document.getElementById("finishSprint").disabled == true
         document.getElementById("viewChart").disabled == false
+        document.getElementById("addTask").disabled = true
     }
 
     for (let id_task =0; id_task < sprintData._sprintTasksId.length; id_task++)
