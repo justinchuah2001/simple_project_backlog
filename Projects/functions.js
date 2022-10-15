@@ -759,7 +759,16 @@ function addTime() {
         }
     hres = hres + hour;
   }    
-
+function backButton()
+{
+    let check = confirm("Are you sure you want to return? ")
+    
+    if (check)
+    {
+        window.location.href = "Sprint_Backlog.html"
+    }
+    
+}
 function showCardStatus(){
     let id = JSON.parse(localStorage.getItem("key")) 
     let sprints = retrieveLSDataSprints()

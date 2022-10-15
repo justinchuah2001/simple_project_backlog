@@ -14,7 +14,7 @@
 <body class="sprint_inactive" id="sprintInactive" onload="showCardStatus()">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
         <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">Inactive Sprint</span>
+            <span class="mdl-layout-title">Sprint Details</span>
             <nav class="mdl-navigation">
                 <a class="mdl-navigation__link" href="Product_Backlog.html">Product Backlog</a>
                 <a class="mdl-navigation__link" href="Sprint_Backlog.html">Sprint Backlog</a>
@@ -121,6 +121,10 @@
                     id="closeCardView">Cancel</button>
             </dialog>
             <div class="header">
+                <button class="mdl-button mdl-js-button mdl-button--raised"  onclick="backButton()"
+                    style="margin: 10px; color: white; background-color:#6E85B7; font-family:Verdana;">
+                    Return
+                </button>
                 <button class="mdl-button mdl-js-button mdl-button--raised" id="startSprint" onclick="startSprint()"
                     style="margin: 10px; color: white; background-color:#6E85B7; font-family:Verdana;">
                     Start
