@@ -798,6 +798,31 @@ function backButton()
     }
     
 }
+function removeCardSprint(card_id)
+{
+    let check = confirm("Are you sure you want to remove this task?\n Changes made will be discarded. ")
+    if (check)
+    {
+        let id = JSON.parse(localStorage.getItem("key")) 
+        let sprints = retrieveLSDataSprints()
+        let cards = retrieveLSDataCards()
+        let sprintData = sprints[id-1]
+        for (let i =0; i<sprintData._sprintTasksId.length; i++)
+        {
+            if (sprintData._sprintTasksId[i]== card_id)
+            {
+                cards[card_id]._inSprint = false
+                sprintData._sprintTasksId.splice(i,1)
+                sprintData._sprintTasks.splice(i,1)
+                localStorage.setItem("sprints", JSON.stringify(sprints))
+                localStorage.setItem("cards",JSON.stringify(cards))
+                showCardStatus() //Reupdate page with changes
+                window.location.reload()
+                break
+            }
+        }
+    }
+}
 function showCardStatus(){
     let id = JSON.parse(localStorage.getItem("key")) 
     let sprints = retrieveLSDataSprints()
@@ -847,7 +872,7 @@ function showCardStatus(){
                         </div>
                     <div class="card-footer">
                         <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
-                        <button class="btn" onclick = "deleteModal(${sprintData._sprintTasksId[id_task]})">Delete</button>
+                        <button class="btn" onclick = "removeCardSprint(${sprintData._sprintTasksId[id_task]})">Remove</button>
                         <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
                     </div>
                         
@@ -868,7 +893,7 @@ function showCardStatus(){
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
-                        <button class="btn" onclick = "deleteModal(${sprintData._sprintTasksId[id_task]})">Delete</button>
+                        <button class="btn" onclick = "removeCardSprint(${sprintData._sprintTasksId[id_task]})">Remove</button>
                         <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
                     </div>
                 </div>`
@@ -887,7 +912,7 @@ function showCardStatus(){
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-outline" onclick = "editCardDetails(${sprintData._sprintTasksId[id_task]})">Edit</button>
-                        <button class="btn" onclick = "deleteModal(${sprintData._sprintTasksId[id_task]})">Delete</button>
+                        <button class="btn" onclick = "removeCardSprint(${sprintData._sprintTasksId[id_task]})">Remove</button>
                         <button class="btn" onclick = "viewCardDetails(${sprintData._sprintTasksId[id_task]})">View</button>
                     </div>
                 </div>`
