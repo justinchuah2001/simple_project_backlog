@@ -673,35 +673,6 @@ function showSprint() {
 }
 
 
-
-function saveSprint() {
-    const modal = document.getElementById("sprintCreate")
-    let cards = retrieveLSDataCards();
-    // Initizalizing tasks(card)
-    let card = new Tasks();
-    // Retrieving input field values
-    sprintNumber = document.getElementById("sprintNumber").value
-    sprintStatus = document.getElementById("sprintStatus").value
-    startDate = document.getElementById("startDate").value
-    endDate = document.getElementById("endDate").value
-    //tasks = document.getElementById("tasks").value
-
-    //Ensuring no empty fields
-    // if (checkValidity(card) == true) {
-    //     cards.push(card)
-    //     updateLSData(cards)
-    //     showSprint(card)
-    //     modal.close();
-    //     setTimeout(clearFields, 300)
-    // }
-
-    cards.push(card)
-    updateLSDataCards(cards)
-    showSprint(card)        
-    modal.close()
-
-}
-
 function showSprintDetails(id) {
     //References
     const sprintEdit = document.getElementById("sprintDetailsEdit")
@@ -729,8 +700,8 @@ function showSprintDetails(id) {
     applyModal.addEventListener("click", () => {
         data._sprintNumber = document.getElementById("sprintNumberEdit").value
         data._sprintStatus = document.getElementById("sprintStatusEdit").value
-        data._sprintEnd = document.getElementById("startDateEdit").value
-        data._sprintStart = document.getElementById("endDateEdit").value
+        data._sprintStart = document.getElementById("startDateEdit").value
+        data._sprintEnd = document.getElementById("endDateEdit").value
 
         localStorage.setItem("sprints", JSON.stringify(sprints))
         sprintEdit.close()
