@@ -1218,7 +1218,7 @@ function showNewMember() {
         // Buttons To Edit or Delete Members
         cellButtons.innerHTML   =   `<td>
                                         <button class= "edit_button" id="edit_member" onclick = "editMember(${id_num})">Edit</button>
-                                        <button class= "delete_button" id="delete_member" onclick="deleteMember()">Delete</button>
+                                        <button class= "delete_button" id="delete_member" onclick="deleteMember(${id_num})">Delete</button>
                                     </td>`
 
         // Add Details to table
@@ -1254,7 +1254,7 @@ function clearFieldsMember() {
 }
 
 function saveMember() {
-    const modal = document.getElementById("membersCreate")
+    const modal = document.getElementById("memberCreate")
     let members = retrieveLSTeamMembers();
     // Initizalizing Members
     let member = new Members();
