@@ -850,23 +850,38 @@ function viewSprint(id){
 }
 
 function finishSprint(id) {
-    let sprints = retrieveLSDataSprints()
+    if (confirm("Are you sure you completed this sprint?") == true) {
+        //References
+        let sprints = retrieveLSDataSprints()
+        let tasks = retrieveLSDataCards()
 
-    let data = sprints[id-1]
-    document.getElementById("sprintNumberEdit").value = data._sprintNumber
-    document.getElementById("sprintStatusEdit").value = data._sprintStatus
-    document.getElementById("startDateEdit").value = data._sprintStart
-    document.getElementById("endDateEdit").value = data._sprintEnd
+        for (let i=0; i<sprints[id-1]._sprintTasksId.length; i++)
+        {
+            if (sprints[id-1]._sprintStatus != "Completed"){
+                for (let j=0; j<tasks.length; j++){
+                    tasks[sprints[id-1]._sprintTasksId[i]]._inSprint = false
+                }
+            }
+        }
 
-    data._sprintNumber = document.getElementById("sprintNumberEdit").value
-    data._sprintStatus = "Completed"
-    data._sprintStart = document.getElementById("startDateEdit").value
-    data._sprintEnd = document.getElementById("endDateEdit").value
+        let data = sprints[id-1]
+        document.getElementById("sprintNumberEdit").value = data._sprintNumber
+        document.getElementById("sprintStatusEdit").value = data._sprintStatus
+        document.getElementById("startDateEdit").value = data._sprintStart
+        document.getElementById("endDateEdit").value = data._sprintEnd
 
-    localStorage.setItem("sprints", JSON.stringify(sprints))
-    showSprint() // Update the changes
-    window.location.reload()
+        data._sprintNumber = document.getElementById("sprintNumberEdit").value
+        data._sprintStatus = "Completed"
+        data._sprintStart = document.getElementById("startDateEdit").value
+        data._sprintEnd = document.getElementById("endDateEdit").value
+
+        localStorage.setItem("sprints", JSON.stringify(sprints))
+        localStorage.setItem("cards", JSON.stringify(tasks))
+        showSprint() //Reupdate page with new ID
+        window.location.reload()
+    }
 }
+
 function addTime() {
     var hour,min,hres,mres
     hour = Number(document.getElementById('num1').value);
