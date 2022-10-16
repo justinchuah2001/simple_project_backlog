@@ -1217,7 +1217,7 @@ function showNewMember() {
 
         // Buttons To Edit or Delete Members
         cellButtons.innerHTML   =   `<td>
-                                        <button class= "edit_button" id="edit_member" onclick="editMember()">Edit</button>
+                                        <button class= "edit_button" id="edit_member" onclick = "editMember(${id_num})">Edit</button>
                                         <button class= "delete_button" id="delete_member" onclick="deleteMember()">Delete</button>
                                     </td>`
 
@@ -1273,7 +1273,37 @@ function saveMember() {
     }
   }
 
-function editMember()  {}
+function editMember(id)  {
+    //References
+    const modalEdit = document.getElementById("memberEdit")
+    const applyModal = document.getElementById("applyMember")
+    const closeModal = document.getElementById("closeMember")
+    let members = retrieveLSTeamMembers()
+    let data = members[id - 1]
+    document.getElementById("memberNameEdit").value = data._memberName
+    document.getElementById("memberEmailEdit").value = data._memberEmail
+    document.getElementById("memberRoleEdit").value = data._memberRole
+    modalEdit.showModal(); // Makes the prompt appear
+
+    applyModal.addEventListener("click", () => {
+        data._memberName = document.getElementById("memberNameEdit").value
+        data._memberEmail = document.getElementById("memberEmailEdit").value
+        data._memberRole = document.getElementById("memberRoleEdit").value
+        localStorage.setItem("members", JSON.stringify(members))
+        modalEdit.close()
+        showNewMember() // Update the changes
+    })
+    //Closes the modal window once anything outside the window is clicked
+    window.onclick = function (event) {
+        if (event.target == modalEdit) {
+            modalEdit.close();
+        }
+    }
+
+    closeModal.addEventListener("click", () => {
+        modalEdit.close();
+    })
+}
 
 function deleteMember(id)  {
     if (confirm("Are you sure you want to delete this member?") == true) {
