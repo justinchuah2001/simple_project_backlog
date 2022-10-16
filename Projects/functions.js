@@ -104,7 +104,7 @@ function checkValidity_Sprint(sprint) {
     }
 }
 function checkValidity_Members(member) {
-    if (member.memberName == "" || member.memberEmail == "" || member.memberRole == "" || member.memberTotalTimeContribution == "" || member.memberAvgTimeContributionPerDay == "") {
+    if (member.memberName == "" || member.memberEmail == "" || member.memberRole == "") {
         alert("One or more fields are empty, please do not leave fields empty!")
         return false
     }
@@ -1217,7 +1217,7 @@ function showNewMember() {
 
         // Buttons To Edit or Delete Members
         cellButtons.innerHTML   =   `<td>
-                                        <button class= "edit_button" id="edit_member" onclick="editMember()">Edit</button>
+                                        <button class= "edit_button" id="edit_member" onclick = "editMember(${id_num})">Edit</button>
                                         <button class= "delete_button" id="delete_member" onclick="deleteMember()">Delete</button>
                                     </td>`
 
@@ -1231,12 +1231,12 @@ function showNewMember() {
         cellRole.innerHTML      =   `<td>
                                         <span id="memberRole${id_num}">${members._memberRole}</span>
                                     </td>`
-        cellTTC.innerHTML       =   `<td>
-                                        <span id="memberTotalTime${id_num}">${members._memberTotalTimeContribution}</span>
-                                    </td>`
-        cellATCPD.innerHTML     =   `<td>
-                                        <span id="memberAvgTime${id_num}">${members._memberAvgTimeContributionPerDay}</span>
-                                    </td>`
+        // cellTTC.innerHTML       =   `<td>
+        //                                 <span id="memberTotalTime${id_num}">${members._memberTotalTimeContribution}</span>
+        //                             </td>`
+        // cellATCPD.innerHTML     =   `<td>
+        //                                 <span id="memberAvgTime${id_num}">${members._memberAvgTimeContributionPerDay}</span>
+        //                             </td>`
     }
 }
 
@@ -1246,18 +1246,14 @@ function clearFieldsMember() {
     let memberName = document.getElementById("memberName")
     let memberEmail = document.getElementById("memberEmail")
     let memberRole = document.getElementById("memberRole")
-    let memberTotalTime = document.getElementById("memberTotalTime")
-    let memberAvgTime = document.getElementById("memberAvgTime")
 
     //Resetting values
     memberName.value = ""
     memberEmail.value = ""
     memberRole.value = ""
-    memberTotalTime.value = ""
-    memberAvgTime.value = ""
 }
 
-  function saveMember() {
+function saveMember() {
     const modal = document.getElementById("membersCreate")
     let members = retrieveLSTeamMembers();
     // Initizalizing Members
@@ -1266,8 +1262,6 @@ function clearFieldsMember() {
     member.memberName = document.getElementById("memberName").value
     member.memberEmail = document.getElementById("memberEmail").value
     member.memberRole = document.getElementById("memberRole").value
-    member.memberTotalTimeContribution = document.getElementById("memberTotalTime").value
-    member.memberAvgTimeContributionPerDay = document.getElementById("memberAvgTime").value
 
     //Ensuring no empty fields
     if (checkValidity_Members(member) == true) {
@@ -1279,21 +1273,51 @@ function clearFieldsMember() {
     }
   }
 
-  function editMember()  {}
+function editMember(id)  {
+    //References
+    const modalEdit = document.getElementById("memberEdit")
+    const applyModal = document.getElementById("applyMember")
+    const closeModal = document.getElementById("closeMember")
+    let members = retrieveLSTeamMembers()
+    let data = members[id - 1]
+    document.getElementById("memberNameEdit").value = data._memberName
+    document.getElementById("memberEmailEdit").value = data._memberEmail
+    document.getElementById("memberRoleEdit").value = data._memberRole
+    modalEdit.showModal(); // Makes the prompt appear
 
-  function deleteMember(id)  {
+    applyModal.addEventListener("click", () => {
+        data._memberName = document.getElementById("memberNameEdit").value
+        data._memberEmail = document.getElementById("memberEmailEdit").value
+        data._memberRole = document.getElementById("memberRoleEdit").value
+        localStorage.setItem("members", JSON.stringify(members))
+        modalEdit.close()
+        showNewMember() // Update the changes
+    })
+    //Closes the modal window once anything outside the window is clicked
+    window.onclick = function (event) {
+        if (event.target == modalEdit) {
+            modalEdit.close();
+        }
+    }
+
+    closeModal.addEventListener("click", () => {
+        modalEdit.close();
+    })
+}
+
+function deleteMember(id)  {
     if (confirm("Are you sure you want to delete this member?") == true) {
-      let oldData = retrieveLSTeamMembers()
-      if (id - 1 == 0) {
-        oldData.splice(0, 1)
-      } 
-      else {
-        oldData.splice(id - 1, 1)
-      }
+        let oldData = retrieveLSTeamMembers()
+        if (id - 1 == 0) {
+            oldData.splice(0, 1)
+        } 
+        else {
+            oldData.splice(id - 1, 1)
+        }
 
-      let newData = JSON.stringify(oldData)
-      localStorage.setItem("members", newData)
-      showNewMember() //Reupdate page with new ID
-      window.location.reload()
+        let newData = JSON.stringify(oldData)
+        localStorage.setItem("members", newData)
+        showNewMember() //Reupdate page with new ID
+        window.location.reload()
     }
   }

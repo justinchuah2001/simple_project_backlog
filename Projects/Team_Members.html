@@ -24,40 +24,60 @@
             <h2>Team members</h2>
             <table id="myTable">
                 <tr>
-                  <th>
-                  <button class= "add_button" id="add_member" onclick="addMember()">Add Member</button>
-                  <!--This is the creation modal-->
-                  <dialog class="modal" id="memberCreate">
-                  <h3>Member Details</h3>
+                    <th>
+                    <button class= "add_button" id="add_member" onclick="addMember()">Add Member</button>
+                    <!--This is the creation modal-->
+                    <dialog class="modal" id="memberCreate">
+                    <h3>Member Details</h3>
                     <form>
-                      <label class="inputFields">Name: <input type="text" id="memberName"
-                              placeholder="Member Name"></label>
-                      <br>
-                      <label class="inputFields">Email: <input type="text" id="memberEmail"
-                              placeholder="Member Email"></label>
-                      <br>
-                      <!-- Temporary input as text -->
-                      <label class="inputFields">Role: <input type="text" id="memberRole"
-                              placeholder="Member Role"></label>
-                      <br>
-                      <br>
+                        <label class="inputFields">Name: <input type="text" id="memberName" 
+                                placeholder="Member Name"></label>
+                        <br>
+                        <label class="inputFields">Email: <input type="text" id="memberEmail"
+                                placeholder="Member Email"></label>
+                        <br>
+                        <!-- Temporary input as text -->
+                        <label class="inputFields">Role: <input type="text" id="memberRole"
+                                placeholder="Member Role"></label>
+                        <br>
                     </form>
-                  <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;" id="saveMember"
-                      onclick="saveMember()">Add</button>
-                  <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;"
-                      id="cancelMember">Cancel</button>
-                  </dialog>
-                  </th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Role</th>
-                  <th>Total time contribution</th>
-                  <th>Average time contribution per day</th>
+                    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;" 
+                            id="saveMember" onclick="saveMember()">Add</button>
+                    <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;"
+                            id="cancelMember">Cancel</button>
+                    </dialog>
+
+                    <!--This is for editing/viewing-->
+                    <dialog class="modal" id="memberEdit">
+                        <h3>Member Details</h3>
+                        <form>
+                          <label class="inputFields">Name: <input type="text" id="memberNameEdit" 
+                                  placeholder="Member Name"></label>
+                          <br>
+                          <label class="inputFields">Email: <input type="text" id="memberEmailEdit"
+                                  placeholder="Member Email"></label>
+                          <br>
+                          <label class="inputFields">Role: <input type="text" id="memberRoleEdit"
+                                  placeholder="Member Role"></label>
+                          <br>
+                        </form>
+                        <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;" 
+                                id="applyMember">Apply Changes </button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;"
+                                id="closeMember">Cancel</button>
+                    </dialog>
+                    
+                <!-- Members Table -->
+                </th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Total time contribution</th>
+                <th>Average time contribution per day</th>
 
                 </tr>
 
-
-              </table>
+            </table>
         </main>
     </div>
 

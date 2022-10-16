@@ -91,3 +91,30 @@ class Sprints
     set sprintTasks(newSprintTasks){ this._sprintTasks = newSprintTasks}
     set sprintTasksId(newSprintTasksId){ this._sprintTasksId = newSprintTasksId}
 }
+
+class Members
+{
+    constructor()
+    {
+    this._memberName = ""
+    this._memberEmail = ""
+    this._memberRole = ""
+    this._memberTotalTimeContribution = ""
+    this._memberAvgTimeContributionPerDay = ""
+    this._inMemberList = false
+    }
+
+    get memberName() {return this._memberName}
+    get memberEmail() {return this._memberEmail}
+    get memberRole() {return this._memberRole}
+    get memberTotalTimeContribution() {return this._memberTotalTimeContribution}
+    get memberAvgTimeContributionPerDay() {return this._memberAvgTimeContributionPerDay}
+    get inMemberList() {return this._inMemberList}
+
+    set memberName(newMemberName){ this._memberName = newMemberName}
+    set memberEmail(newMemberEmail){ this._memberEmail = newMemberEmail}
+    set memberRole(newMemberRole){ this._memberRole = newMemberRole}
+    set memberTotalTimeContribution(newMemberTotalTimeContribution){ this._memberTotalTimeContribution = newMemberTotalTimeContribution}
+    set memberAvgTimeContributionPerDay(newMemberAvgTimeContributionPerDay){ this._memberAvgTimeContributionPerDay = newMemberAvgTimeContributionPerDay}
+    set inMemberList(newMemberStatus){ this._inMemberList = newMemberStatus}
+}
