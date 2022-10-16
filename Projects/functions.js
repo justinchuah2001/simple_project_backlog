@@ -875,6 +875,33 @@ function backButton()
     }
     
 }
+function addTime(card_id)
+{   
+    let id = JSON.parse(localStorage.getItem("key")) 
+    let sprints = retrieveLSDataSprints()
+    let sprintData = sprints[id-1]
+
+    let hours = parseInt(document.getElementById("hour"+card_id).value)
+    let minutes = parseInt(document.getElementById("min"+card_id).value)
+    let timeLogInMinutes = (hours*60) + minutes
+    if (timeLogInMinutes >0)
+    {
+        for (let i=0; i<sprintData._sprintTasksId.length; i++)
+        {
+            if (sprintData._sprintTasksId[i] == card_id)
+            {
+                sprintData._sprintTasks[i]._timeLogs.push([timeLogInMinutes, sprintData._sprintTasks[i]._assginee])
+                localStorage.setItem("sprints", JSON.stringify(sprints))
+                break
+            }
+        }
+    }else
+    {
+        alert("Please insert a valid amount of time to log")
+        window.location.reload()
+    }
+    
+}
 function removeCardSprint(card_id)
 {
     let check = confirm("Are you sure you want to remove this task?\n Changes made will be discarded. ")
@@ -948,7 +975,6 @@ function editCardInSprint(id) {
             modalEditSprint.close();
         }
 }
-
     closeModal.addEventListener("click", () => {
         modalEditSprint.close();
     })
@@ -998,9 +1024,6 @@ function showCardStatus(){
                     <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
                     <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
                         
-                        <label class = "hours"><input type="number" id = "hour" min="0" style="width: 50px"placeholder="0">hour(s)</label>
-                        <label class = "mins"><input type="number" id = "min" min="0" style="width: 50px"placeholder="0">min(s)</label>
-                        <button class="btn btn-outline" onclick = "addTime()">add time log</button>
                         
                 </div>
                 <div class="card-footer">
@@ -1065,9 +1088,9 @@ function showCardStatus(){
                         <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
                         <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
                         
-                        <label class = "hours"><input type="number" id = "hour" min="0" style="width: 50px"placeholder="0">hour(s)</label>
-                        <label class = "mins"><input type="number" id = "min" min="0" style="width: 50px"placeholder="0">min(s)</label>
-                        <button class="btn btn-outline" onclick = "addTime()">add time log</button>
+                        <label class = "hours"><input type="number" value= 0 id = "hour${sprintData._sprintTasksId[id_task]}" min="0" style="width: 50px"placeholder="0">hour(s)</label>
+                    <label class = "mins"><input type="number" value = 0 id = "min${sprintData._sprintTasksId[id_task]}" min="0" style="width: 50px"placeholder="0">min(s)</label>
+                    <button class="btn btn-outline" onclick = "addTime(${sprintData._sprintTasksId[id_task]})">Add Time Log</button>
             
                         </div>
                     <div class="card-footer">
@@ -1089,6 +1112,9 @@ function showCardStatus(){
                         <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
                         <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
                         <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
+                        <label class = "hours"><input type="number" value= 0 id = "hour${sprintData._sprintTasksId[id_task]}" min="0" style="width: 50px"placeholder="0">hour(s)</label>
+                    <label class = "mins"><input type="number" value = 0 id = "min${sprintData._sprintTasksId[id_task]}" min="0" style="width: 50px"placeholder="0">min(s)</label>
+                    <button class="btn btn-outline" onclick = "addTime(${sprintData._sprintTasksId[id_task]})">Add Time Log</button>
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-outline" onclick = "editCardInSprint(${parseInt(sprintData._sprintTasksId[id_task])+1})">Edit</button>
@@ -1107,6 +1133,9 @@ function showCardStatus(){
                         <div>Tags: <span id="tags${sprintData._sprintTasksId[id_task]}">${card._tags}</span> </div>
                         <div>Status: <span id="status${sprintData._sprintTasksId[id_task]}">${card._status}</span> </div>
                         <div>Story Points: <span id="storyPoints${sprintData._sprintTasksId[id_task]}">${card._storyPoints}</span> </div>
+                        <label class = "hours"><input type="number" value= 0 id = "hour${sprintData._sprintTasksId[id_task]}" min="0" style="width: 50px"placeholder="0">hour(s)</label>
+                    <label class = "mins"><input type="number" value = 0 id = "min${sprintData._sprintTasksId[id_task]}" min="0" style="width: 50px"placeholder="0">min(s)</label>
+                    <button class="btn btn-outline" onclick = "addTime(${sprintData._sprintTasksId[id_task]})">Add Time Log</button>
                     </div>
                     <div class="card-footer">
                         <button class="btn btn-outline" onclick = "editCardInSprint(${parseInt(sprintData._sprintTasksId[id_task])+1})">Edit</button>

@@ -12,6 +12,7 @@ class Tasks
         this._type = "";
         this._details = "";
         this._inSprint = false;
+        this._timeLogs = []
     }
     
     //Accessor
@@ -24,6 +25,7 @@ class Tasks
     get type() {return this._type};
     get details() {return this._details}
     get inSprint() {return this._inSprint}
+    get timeLogs() {return this._timeLogs}
     
     //Mutators
     set taskName(newTaskName)
@@ -61,6 +63,10 @@ class Tasks
     set inSprint(newSprintStatus)
     {
         this._inSprint = newSprintStatus
+    }
+    set timeLogs(newTimeLogs)
+    {
+        this._timeLogs = newSprintStatus
     }
 
 }
