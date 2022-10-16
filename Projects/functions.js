@@ -927,6 +927,33 @@ function removeCardSprint(card_id)
 }
     }
 }
+
+function startSprint()
+{
+    let id = JSON.parse(localStorage.getItem("key")) 
+    let sprints = retrieveLSDataSprints()
+    let cards = retrieveLSDataCards()
+    let sprintData = sprints[id-1]
+    let activeSprintExist = false
+
+    for (let i=0; i<sprints.length; i++)
+    {
+        if (sprints[i]._sprintStatus == "Active")
+        {
+            alert("Unable to start sprint as there is a currently active sprint!")
+            activeSprintExist = true
+            break
+        }
+    }
+    if (activeSprintExist == false)
+    {
+        sprintData._sprintStatus = "Active"
+        localStorage.setItem("sprints", JSON.stringify(sprints))
+        alert("Sprint has started, page will now reload")
+        window.location.reload()
+    }
+    
+}
 function editCardInSprint(id) {
     //References
     const modalEditSprint = document.getElementById("modalEditSprint")
