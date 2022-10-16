@@ -1338,6 +1338,7 @@ function saveMember() {
         updateLSTeamMembers(members)
         showNewMember(member)
         modal.close();
+        window.location.reload()
         setTimeout(clearFieldsMember, 300)
     }
   }
@@ -1360,6 +1361,7 @@ function editMember(id)  {
         data._memberRole = document.getElementById("memberRoleEdit").value
         localStorage.setItem("members", JSON.stringify(members))
         modalEdit.close()
+        window.location.reload()
         showNewMember() // Update the changes
     })
     //Closes the modal window once anything outside the window is clicked
