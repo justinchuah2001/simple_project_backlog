@@ -743,7 +743,7 @@ function showSprint() {
             <div class="card-footer">
                 <button class="btn btn-outline" onclick = "showSprintDetails(${id_num})">Edit</button>
                 <button class="btn" onclick = "viewSprint(${id_num})">View</button>
-                <button class="btn" onclick = "finishSprint()">Finish</button>
+                <button class="btn" onclick = "finishSprint(${id_num})">Finish</button>
             </div>
         </div>`
         }else if (sprint._sprintStatus == "Completed")
@@ -849,10 +849,23 @@ function viewSprint(id){
     window.location.href= "Sprint_Status.html"
 }
 
-function finishSprint() {
-    let sprintStatus = document.getElementById("sprintStatusEdit")
+function finishSprint(id) {
+    let sprints = retrieveLSDataSprints()
 
-    sprintStatus.value = "Completed"
+    let data = sprints[id-1]
+    document.getElementById("sprintNumberEdit").value = data._sprintNumber
+    document.getElementById("sprintStatusEdit").value = data._sprintStatus
+    document.getElementById("startDateEdit").value = data._sprintStart
+    document.getElementById("endDateEdit").value = data._sprintEnd
+
+    data._sprintNumber = document.getElementById("sprintNumberEdit").value
+    data._sprintStatus = "Completed"
+    data._sprintStart = document.getElementById("startDateEdit").value
+    data._sprintEnd = document.getElementById("endDateEdit").value
+
+    localStorage.setItem("sprints", JSON.stringify(sprints))
+    showSprint() // Update the changes
+    window.location.reload()
 }
 function addTime() {
     var hour,min,hres,mres
