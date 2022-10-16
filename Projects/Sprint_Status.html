@@ -11,10 +11,10 @@
     <script src="shared.js"></script>
 </head>
 
-<body class="sprint_inactive" id="sprintInactive" onload="showCardsInactive()">
+<body class="sprint_inactive" id="sprintInactive" onload="showCardStatus()">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
         <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">Inactive Sprint</span>
+            <span class="mdl-layout-title">Sprint Details</span>
             <nav class="mdl-navigation">
                 <a class="mdl-navigation__link" href="Product_Backlog.html">Product Backlog</a>
                 <a class="mdl-navigation__link" href="Sprint_Backlog.html">Sprint Backlog</a>
@@ -23,7 +23,7 @@
         </div>
         <main class="mdl-layout__content">
             <!--This is for editing/viewing-->
-            <dialog class="modal" id="modalEdit">
+            <dialog class="modal" id="modalEditSprint">
                 <h3>Task Details</h3>
                 <form>
                     <label class="inputFields">Name: <input type="text" id="formNameEdit"></label>
@@ -86,6 +86,7 @@
                         <option>144</option>
                     </datalist>
                     <br>
+                
                     Details:<input type="text" class="textArea" id="detailsEdit">
 
                 </form>
@@ -119,10 +120,32 @@
                 <button class="mdl-button mdl-js-button mdl-button--raised" style="margin: 20px;"
                     id="closeCardView">Cancel</button>
             </dialog>
+            <!--This is for adding tasks-->
+            <dialog class="modal" id="modalAddTask">
+                <h3>Available Tasks</h3>
+                <form>
+                </form>
+            </dialog>
             <div class="header">
+                <button class="mdl-button mdl-js-button mdl-button--raised"  onclick="backButton()"
+                    style="margin: 10px; color: white; background-color:#6E85B7; font-family:Verdana;">
+                    Return
+                </button>
                 <button class="mdl-button mdl-js-button mdl-button--raised" id="startSprint" onclick="startSprint()"
                     style="margin: 10px; color: white; background-color:#6E85B7; font-family:Verdana;">
                     Start
+                </button>
+                <button class="mdl-button mdl-js-button mdl-button--raised" id="finishSprint" onclick="finishSprint()"
+                    style="margin: 10px; color: white; background-color:#6E85B7; font-family:Verdana;">
+                    Finish
+                </button>
+                <button class="mdl-button mdl-js-button mdl-button--raised" id="viewChart" onclick="viewBurnDownChart()"
+                    style="margin: 10px; color: white; background-color:#6E85B7; font-family:Verdana;">
+                    Burndown Chart
+                </button>
+                <button class="mdl-button mdl-js-button mdl-button--raised" id="addTask" onclick="addTaskSprint()"
+                    style="margin: 10px; color: white; background-color:#6E85B7; font-family:Verdana;">
+                    Add Task
                 </button>
 
             </div>
@@ -140,7 +163,7 @@
 
         </main>
     </div>
-
+  
 </body>
 
 </html>
